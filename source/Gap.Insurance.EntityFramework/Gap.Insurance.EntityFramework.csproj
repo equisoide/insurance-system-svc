@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Authors>Juan Cuartas</Authors>
+    <Company>Gap</Company>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <version>0.0.1</version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+  </ItemGroup>
+
+</Project>
