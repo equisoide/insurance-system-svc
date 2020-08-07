@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{93DD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.EntityFramework", "Gap.Insurance.EntityFramework\Gap.Insurance.EntityFramework.csproj", "{05D21E84-2525-4F46-9D87-EAEA33FE99F3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.Model", "Gap.Insurance.Model\Gap.Insurance.Model.csproj", "{E93FBE71-0CA8-4887-B131-4A5B59A5D044}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +23,17 @@ Global
 		{05D21E84-2525-4F46-9D87-EAEA33FE99F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05D21E84-2525-4F46-9D87-EAEA33FE99F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05D21E84-2525-4F46-9D87-EAEA33FE99F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93FBE71-0CA8-4887-B131-4A5B59A5D044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93FBE71-0CA8-4887-B131-4A5B59A5D044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93FBE71-0CA8-4887-B131-4A5B59A5D044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93FBE71-0CA8-4887-B131-4A5B59A5D044}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05D21E84-2525-4F46-9D87-EAEA33FE99F3} = {93DD651C-7874-4BEF-9AE8-6E2F2AF0E3C6}
+		{E93FBE71-0CA8-4887-B131-4A5B59A5D044} = {93DD651C-7874-4BEF-9AE8-6E2F2AF0E3C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E4D776C-5965-4AA4-9AEF-AE6B693108BC}
