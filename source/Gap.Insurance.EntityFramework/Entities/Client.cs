@@ -7,7 +7,7 @@ namespace Gap.Insurance.EntityFramework
     {
         public Client()
         {
-            Policy = new HashSet<Policy>();
+            ClientPolicy = new HashSet<ClientPolicy>();
         }
 
         public int ClientId { get; set; }
@@ -17,6 +17,6 @@ namespace Gap.Insurance.EntityFramework
         public string CellPhone { get; set; }
         public DateTime BirthDate { get; set; }
 
-        public virtual ICollection<Policy> Policy { get; set; }
+        public virtual ICollection<ClientPolicy> ClientPolicy { get; set; }
     }
 }

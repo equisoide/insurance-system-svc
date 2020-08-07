@@ -6,12 +6,12 @@ namespace Gap.Insurance.EntityFramework
     {
         public PolicyStatus()
         {
-            Policy = new HashSet<Policy>();
+            ClientPolicy = new HashSet<ClientPolicy>();
         }
 
         public int PolicyStatusId { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Policy> Policy { get; set; }
+        public virtual ICollection<ClientPolicy> ClientPolicy { get; set; }
     }
 }
