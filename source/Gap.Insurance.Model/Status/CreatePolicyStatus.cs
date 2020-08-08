@@ -9,6 +9,7 @@
         PeriodsFormat = 465,
         PriceFormat = 466,
         RiskIdNotFound = 485,
+        NameAlreadyTaken = 486,
         CreatePolicyOk = 200
     }
 }
