@@ -30,22 +30,22 @@ namespace Gap.Insurance.Core
             );
         }
 
-        public override async Task<Risk> GetRiskFromSourceAsync(GetRiskPayload payload)
+        public override async Task<Risk> GetRisk(GetRiskPayload payload)
         {
             var risk = _risks.FirstOrDefault(r => r.RiskId == payload.RiskId);
             return await Task.FromResult(risk);
         }
 
-        protected override async Task<IEnumerable<Risk>> GetRisksFromSourceAsync()
+        protected override async Task<IEnumerable<Risk>> GetRisks()
             => await Task.FromResult(_risks);
 
-        public override async Task<Coverage> GetCoverageFromSourceAsync(GetCoveragePayload payload)
+        public override async Task<Coverage> GetCoverage(GetCoveragePayload payload)
         {
             var coverage = _coverages.FirstOrDefault(c => c.CoverageId == payload.CoverageId);
             return await Task.FromResult(coverage);
         }
 
-        protected override async Task<IEnumerable<Coverage>> GetCoveragesFromSourceAsync()
+        protected override async Task<IEnumerable<Coverage>> GetCoverages()
             => await Task.FromResult(_coverages);
     }
 }

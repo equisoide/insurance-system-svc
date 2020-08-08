@@ -11,6 +11,7 @@
         PriceFormat = 466,
         PolicyIdNotFound = 484,
         RiskIdNotFound = 485,
+        NameAlreadyTaken = 486,
         UpdatePolicyOk = 200
     }
 }

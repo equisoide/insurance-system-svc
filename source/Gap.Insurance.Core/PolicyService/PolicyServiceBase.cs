@@ -28,7 +28,7 @@ namespace Gap.Insurance.Core
         {
             StartLog();
 
-            var policies = (await GetPoliciesFromSourceAsync()).OrderBy(p => p.Name);
+            var policies = (await GetPolicies()).OrderBy(p => p.Name);
             var response = Ok<IEnumerable<PolicyDto>, GetPoliciesStatus>(policies, GetPoliciesStatus.Ok);
 
             EndLog();
@@ -50,7 +50,7 @@ namespace Gap.Insurance.Core
                     response = Error(CreatePolicyStatus.RiskIdNotFound);
                 else
                 {
-                    var policy = await GetPolicyFromSourceAsync(payload.Name);
+                    var policy = await GetPolicyByName(payload.Name);
 
                     if (policy != null)
                         response = Error(CreatePolicyStatus.NameAlreadyTaken);
@@ -68,9 +68,43 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<PolicyDto, UpdatePolicyStatus>> UpdatePolicyAsync(UpdatePolicyPayload payload)
+        public async Task<ApiResponse<PolicyDto, UpdatePolicyStatus>> UpdatePolicyAsync(UpdatePolicyPayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<PolicyDto, UpdatePolicyStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+                response = Error<UpdatePolicyStatus>(message, property);
+            else
+            {
+                if (!await ExistsPolicyId(payload.PolicyId))
+                    response = Error(UpdatePolicyStatus.PolicyIdNotFound);
+                else
+                {
+                    var risk = await _masterDataSvc.GetRiskAsync(new GetRiskPayload { RiskId = payload.RiskId });
+
+                    if (risk.StatusCode != GetRiskStatus.Ok)
+                        response = Error(UpdatePolicyStatus.RiskIdNotFound);
+                    else
+                    {
+                        var policy = await GetPolicyByName(payload.Name);
+
+                        if (policy != null && policy.PolicyId != payload.PolicyId)
+                            response = Error(UpdatePolicyStatus.NameAlreadyTaken);
+                        else
+                        {
+                            policy = Mapper.Map<Policy>(payload);
+                            DetachEntities();
+                            await SaveAsync(ApiChangeAction.Update, policy);
+                            policy = await GetPolicyById(payload.PolicyId);
+                            response = Ok<PolicyDto, UpdatePolicyStatus>(policy, UpdatePolicyStatus.UpdatePolicyOk);
+                        }
+                    }
+                }
+            }
+
+            EndLog();
+            return response;
         }
 
         public Task<ApiResponse<PolicyDto, DeletePolicyStatus>> DeletePolicyAsync(DeletePolicyPayload payload)
@@ -78,7 +112,9 @@ namespace Gap.Insurance.Core
             throw new System.NotImplementedException();
         }
 
-        protected abstract Task<Policy> GetPolicyFromSourceAsync(string name);
-        protected abstract Task<IEnumerable<Policy>> GetPoliciesFromSourceAsync();
+        protected abstract Task<bool> ExistsPolicyId(int policyId);
+        protected abstract Task<Policy> GetPolicyById(int policyId);
+        protected abstract Task<Policy> GetPolicyByName(string name);
+        protected abstract Task<IEnumerable<Policy>> GetPolicies();
     }
 }

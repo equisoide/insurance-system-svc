@@ -12,6 +12,7 @@ namespace Gap.Insurance.Core
         public static void MapPayloadsToEntities(this IMapperConfigurationExpression config)
         {
             config.CreateMap<CreatePolicyPayload, Policy>();
+            config.CreateMap<UpdatePolicyPayload, Policy>();
         }
 
         public static void MapEntitiesToDtos(this IMapperConfigurationExpression config)

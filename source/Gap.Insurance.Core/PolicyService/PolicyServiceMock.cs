@@ -47,13 +47,25 @@ namespace Gap.Insurance.Core
             }
         }
 
-        protected override async Task<Policy> GetPolicyFromSourceAsync(string name)
+        protected override async Task<bool> ExistsPolicyId(int policyId)
+        {
+            var policy = _policies.FirstOrDefault(p => p.PolicyId == policyId);
+            return await Task.FromResult(policy != null);
+        }
+
+        protected override async Task<Policy> GetPolicyById(int policyId)
+        {
+            var policy = _policies.FirstOrDefault(p => p.PolicyId == policyId);
+            return await Task.FromResult(policy);
+        }
+
+        protected override async Task<Policy> GetPolicyByName(string name)
         {
             var policy = _policies.FirstOrDefault(p => p.Name == name);
             return await Task.FromResult(policy);
         }
 
-        protected override async Task<IEnumerable<Policy>> GetPoliciesFromSourceAsync()
+        protected override async Task<IEnumerable<Policy>> GetPolicies()
             => await Task.FromResult(_policies);
 
         protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
@@ -63,6 +75,13 @@ namespace Gap.Insurance.Core
                 var policy = entity as Policy;
                 policy.PolicyId = _policies.Max(p => p.PolicyId) + 1;
                 _policies.Add(policy);
+            }
+            else if (operation == ApiChangeAction.Update)
+            {
+                var newPolicy = entity as Policy;
+                var oldPolicy = _policies.First(p => p.PolicyId == newPolicy.PolicyId);
+                _policies.Remove(oldPolicy);
+                _policies.Add(newPolicy);
             }
 
             await Task.FromResult(0);

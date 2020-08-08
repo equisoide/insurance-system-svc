@@ -15,16 +15,16 @@ namespace Gap.Insurance.Core
         public MasterDataServiceEF(ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args)
             : base(args) { }
 
-        public override async Task<Risk> GetRiskFromSourceAsync(GetRiskPayload payload)
+        public override async Task<Risk> GetRisk(GetRiskPayload payload)
             => await DbContext.Risk.FirstOrDefaultAsync(r => r.RiskId == payload.RiskId);
 
-        protected override async Task<IEnumerable<Risk>> GetRisksFromSourceAsync()
+        protected override async Task<IEnumerable<Risk>> GetRisks()
             => await DbContext.Risk.ToListAsync();
 
-        public override async Task<Coverage> GetCoverageFromSourceAsync(GetCoveragePayload payload)
+        public override async Task<Coverage> GetCoverage(GetCoveragePayload payload)
             => await DbContext.Coverage.FirstOrDefaultAsync(c => c.CoverageId == payload.CoverageId);
 
-        protected override async Task<IEnumerable<Coverage>> GetCoveragesFromSourceAsync()
+        protected override async Task<IEnumerable<Coverage>> GetCoverages()
             => await DbContext.Coverage.ToListAsync();
     }
 }

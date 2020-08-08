@@ -30,7 +30,7 @@ namespace Gap.Insurance.Core
                 response = Error<GetRiskStatus>(message, property);
             else
             {
-                var risk = await GetRiskFromSourceAsync(payload);
+                var risk = await GetRisk(payload);
 
                 if (risk == null)
                     response = Error(GetRiskStatus.RiskIdNotFound);
@@ -46,7 +46,7 @@ namespace Gap.Insurance.Core
         {
             StartLog();
 
-            var risks = (await GetRisksFromSourceAsync()).OrderBy(r => r.RiskId);
+            var risks = (await GetRisks()).OrderBy(r => r.RiskId);
             var response = Ok<IEnumerable<RiskDto>, GetRisksStatus>(risks, GetRisksStatus.Ok);
 
             EndLog();
@@ -62,7 +62,7 @@ namespace Gap.Insurance.Core
                 response = Error<GetCoverageStatus>(message, property);
             else
             {
-                var coverage = await GetCoverageFromSourceAsync(payload);
+                var coverage = await GetCoverage(payload);
 
                 if (coverage == null)
                     response = Error(GetCoverageStatus.CoverageIdNotFound);
@@ -78,16 +78,16 @@ namespace Gap.Insurance.Core
         {
             StartLog();
 
-            var coverages = (await GetCoveragesFromSourceAsync()).OrderBy(c => c.Description);
+            var coverages = (await GetCoverages()).OrderBy(c => c.Description);
             var response = Ok<IEnumerable<CoverageDto>, GetCoveragesStatus>(coverages, GetCoveragesStatus.Ok);
 
             EndLog();
             return response;
         }
 
-        public abstract Task<Risk> GetRiskFromSourceAsync(GetRiskPayload payload);
-        protected abstract Task<IEnumerable<Risk>> GetRisksFromSourceAsync();
-        public abstract Task<Coverage> GetCoverageFromSourceAsync(GetCoveragePayload payload);
-        protected abstract Task<IEnumerable<Coverage>> GetCoveragesFromSourceAsync();
+        public abstract Task<Risk> GetRisk(GetRiskPayload payload);
+        protected abstract Task<IEnumerable<Risk>> GetRisks();
+        public abstract Task<Coverage> GetCoverage(GetCoveragePayload payload);
+        protected abstract Task<IEnumerable<Coverage>> GetCoverages();
     }
 }
