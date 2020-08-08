@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
@@ -44,7 +45,7 @@ namespace Gap.Insurance.Core
         {
             StartLog();
 
-            var risks = await GetRisksFromSourceAsync();
+            var risks = (await GetRisksFromSourceAsync()).OrderBy(r => r.RiskId);
             var response = Ok<IEnumerable<RiskDto>, GetRisksStatus>(risks, GetRisksStatus.Ok);
 
             EndLog();
@@ -76,7 +77,7 @@ namespace Gap.Insurance.Core
         {
             StartLog();
 
-            var coverages = await GetCoveragesFromSourceAsync();
+            var coverages = (await GetCoveragesFromSourceAsync()).OrderBy(c => c.Description);
             var response = Ok<IEnumerable<CoverageDto>, GetCoveragesStatus>(coverages, GetCoveragesStatus.Ok);
 
             EndLog();
