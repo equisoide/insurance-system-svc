@@ -3,11 +3,11 @@ using System.Globalization;
 using Celerik.NetCore.Util;
 using Microsoft.Extensions.Localization;
 
-namespace Gap.Insurance.Core
+namespace Gap.Insurance.Resources
 {
     [SuppressMessage("Design", "CA1052:Static holder types should be Static or NotInheritable", Justification = "This class is instantiable by the String Localizer Factory")]
     [ExcludeFromCodeCoverage]
-    public class CoreResources
+    public class InsuranceResources
     {
         private static IStringLocalizer _localizer;
 
@@ -16,7 +16,7 @@ namespace Gap.Insurance.Core
             get
             {
                 if (_localizer == null && UtilResources.Factory != null)
-                    _localizer = UtilResources.Factory.Create(typeof(CoreResources));
+                    _localizer = UtilResources.Factory.Create(typeof(InsuranceResources));
 
                 return _localizer;
             }

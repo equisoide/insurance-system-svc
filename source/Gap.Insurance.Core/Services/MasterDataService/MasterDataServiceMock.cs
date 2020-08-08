@@ -5,6 +5,7 @@ using Celerik.NetCore.Services;
 using Celerik.NetCore.Util;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
+using Gap.Insurance.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
@@ -19,11 +20,11 @@ namespace Gap.Insurance.Core
             : base(args)
         {
             _risks = EmbeddedFileUtility.ReadJson<IEnumerable<Risk>>(
-                "Assets.Risk.Mock.json"
+                "MockData.Risk.json", typeof(InsuranceResources).Assembly
             );
 
             _coverages = EmbeddedFileUtility.ReadJson<IEnumerable<Coverage>>(
-                "Assets.Coverage.Mock.json"
+                "MockData.Coverage.json", typeof(InsuranceResources).Assembly
             );
         }
 

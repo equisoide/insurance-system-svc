@@ -16,16 +16,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MockData\Coverage.json" />
+    <None Remove="MockData\Policy.json" />
+    <None Remove="MockData\Risk.json" />
+    <None Remove="StringLocalization\InsuranceResources.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="MockData\Coverage.json" />
+    <EmbeddedResource Include="MockData\Policy.json" />
+    <EmbeddedResource Include="MockData\Risk.json" />
+    <EmbeddedResource Include="StringLocalization\InsuranceResources.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Celerik.NetCore.Services" Version="2.5.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Gap.Insurance.EntityFramework\Gap.Insurance.EntityFramework.csproj" />
-    <ProjectReference Include="..\Gap.Insurance.Model\Gap.Insurance.Model.csproj" />
-    <ProjectReference Include="..\Gap.Insurance.Resources\Gap.Insurance.Resources.csproj" />
   </ItemGroup>
 
 </Project>

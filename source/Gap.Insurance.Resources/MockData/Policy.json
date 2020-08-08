@@ -1,0 +1,34 @@
+﻿[
+  {
+    "PolicyId": 1,
+    "RiskId": 1,
+    "Name": "All Low 12 Vip",
+    "Description": "All covered 100%, low risk, 1 year",
+    "Periods": 12,
+    "Price": 700
+  },
+  {
+    "PolicyId": 2,
+    "RiskId": 1,
+    "Name": "All Low 6 Vip",
+    "Description": "All covered 100%, low risk, 6 months",
+    "Periods": 6,
+    "Price": 300
+  },
+  {
+    "PolicyId": 3,
+    "RiskId": 4,
+    "Name": "All High 12 50%",
+    "Description": "All covered 50%, high risk, 1 year",
+    "Periods": 12,
+    "Price": 1000
+  },
+  {
+    "PolicyId": 4,
+    "RiskId": 4,
+    "Name": "All High 6 40%",
+    "Description": "All covered 40%, high risk, 6 months",
+    "Periods": 6,
+    "Price": 600
+  }
+]

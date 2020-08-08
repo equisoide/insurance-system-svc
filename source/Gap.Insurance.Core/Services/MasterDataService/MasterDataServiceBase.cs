@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
+using Gap.Insurance.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
     public abstract class MasterDataServiceBase<TLoggerCategory, TDbContext>
-        : ApiServiceEF<TLoggerCategory, CoreResources, TDbContext>, IMasterDataService
+        : ApiServiceEF<TLoggerCategory, InsuranceResources, TDbContext>, IMasterDataService
             where TDbContext : DbContext
     {
         public MasterDataServiceBase(ApiServiceArgs<TLoggerCategory> args)
