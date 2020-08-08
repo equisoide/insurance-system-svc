@@ -2,7 +2,7 @@
 using FluentValidation;
 using Gap.Insurance.Model;
 
-namespace Gap.Insurance.Services
+namespace Gap.Insurance.Core
 {
     public class CreateClientPolicyValidator : AbstractValidator<CreateClientPolicyPayload>
     {

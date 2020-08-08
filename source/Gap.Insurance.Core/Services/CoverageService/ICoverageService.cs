@@ -2,7 +2,7 @@
 using Celerik.NetCore.Services;
 using Gap.Insurance.Model;
 
-namespace Gap.Insurance.Services
+namespace Gap.Insurance.Core
 {
     public interface ICoverageService
     {
