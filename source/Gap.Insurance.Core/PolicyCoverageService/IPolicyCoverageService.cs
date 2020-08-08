@@ -4,7 +4,7 @@ using Gap.Insurance.Model;
 
 namespace Gap.Insurance.Core
 {
-    public interface ICoverageService
+    public interface IPolicyCoverageService
     {
         Task<ApiResponse<PolicyCoverageDto, CreatePolicyCoverageStatus>> CreatePolicyCoverageAsync(CreatePolicyCoveragePayload payload);
         Task<ApiResponse<PolicyCoverageDto, UpdatePolicyCoverageStatus>> UpdatePolicyCoverageAsync(UpdatePolicyCoveragePayload payload);

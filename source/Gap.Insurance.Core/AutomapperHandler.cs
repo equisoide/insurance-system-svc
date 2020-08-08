@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using AutoMapper;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
@@ -16,6 +17,18 @@ namespace Gap.Insurance.Core
         {
             config.CreateMap<Risk, RiskDto>();
             config.CreateMap<Coverage, CoverageDto>();
+
+            config.CreateMap<Policy, PolicyDto>()
+                .ForMember(
+                    des => des.RiskDescripition,
+                    opt => opt.MapFrom(src => src.Risk.Description))
+                .ForMember(
+                    des => des.Coverages,
+                    opt => opt.MapFrom(src => src.PolicyCoverage.Select(pc => new PolicyCoverageDto {
+                        PolicyCoverageId = pc.PolicyCoverageId,
+                        CoverageDescription = pc.Coverage.Description,
+                        Percentage = pc.Percentage
+                    })));
         }
     }
 }
