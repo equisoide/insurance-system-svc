@@ -1,8 +1,9 @@
 ﻿using Celerik.NetCore.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
+using Gap.Insurance.Validators;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Gap.Insurance.Core
 {

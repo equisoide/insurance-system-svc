@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using Gap.Insurance.Model;
 
-namespace Gap.Insurance.Core
+namespace Gap.Insurance.Validators
 {
-    public class UpdatePolicyCoverageValidator : AbstractValidator<UpdatePolicyCoveragePayload>
+    public class DeletePolicyCoverageValidator : AbstractValidator<DeletePolicyCoveragePayload>
     {
-        public UpdatePolicyCoverageValidator()
+        public DeletePolicyCoverageValidator()
         {
             RuleFor(payload => payload.PolicyCoverageId)
                 .GreaterThan(0);
