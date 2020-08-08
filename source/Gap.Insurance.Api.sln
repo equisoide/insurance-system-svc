@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.Core", "Gap.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.Api", "Gap.Insurance.Api\Gap.Insurance.Api.csproj", "{E07552F2-31EF-43CE-8820-9D9E39B4CF87}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{D7F862B3-0BF7-415D-8DCA-B4FC3E4E5BD3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.Test", "Gap.Insurance.Test\Gap.Insurance.Test.csproj", "{6CCD9310-E519-4BFD-8F23-3A57AC3DED04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{E07552F2-31EF-43CE-8820-9D9E39B4CF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E07552F2-31EF-43CE-8820-9D9E39B4CF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E07552F2-31EF-43CE-8820-9D9E39B4CF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CCD9310-E519-4BFD-8F23-3A57AC3DED04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCD9310-E519-4BFD-8F23-3A57AC3DED04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCD9310-E519-4BFD-8F23-3A57AC3DED04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCD9310-E519-4BFD-8F23-3A57AC3DED04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{E93FBE71-0CA8-4887-B131-4A5B59A5D044} = {93DD651C-7874-4BEF-9AE8-6E2F2AF0E3C6}
 		{72943109-2E7D-4FB0-B236-52A9F9F78015} = {93DD651C-7874-4BEF-9AE8-6E2F2AF0E3C6}
 		{E07552F2-31EF-43CE-8820-9D9E39B4CF87} = {93DD651C-7874-4BEF-9AE8-6E2F2AF0E3C6}
+		{6CCD9310-E519-4BFD-8F23-3A57AC3DED04} = {D7F862B3-0BF7-415D-8DCA-B4FC3E4E5BD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E4D776C-5965-4AA4-9AEF-AE6B693108BC}
