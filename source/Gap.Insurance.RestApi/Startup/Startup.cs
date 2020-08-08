@@ -19,7 +19,7 @@ namespace Gap.Insurance.RestApi
         public void ConfigureServices(IServiceCollection services) =>
             MicroserviceStartup.ConfigureServices(services, _config, ApiName, () =>
             {
-                services.AddCoreServices(_config);
+                services.AddCoreServices<IPolicyService>(_config);
             });
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

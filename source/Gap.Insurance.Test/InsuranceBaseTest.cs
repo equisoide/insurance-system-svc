@@ -11,7 +11,7 @@ namespace Gap.Insurance.Test
         {
             var config = GetService<IConfiguration>();
             config["ServiceType"] = "ServiceMock";
-            services.AddCoreServices(config);
+            services.AddCoreServices<IPolicyService>(config);
         }
     }
 }

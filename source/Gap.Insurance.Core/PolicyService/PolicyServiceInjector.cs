@@ -6,25 +6,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Gap.Insurance.Core
 {
-    public static class MasterDataServiceInjector
+    public static class PolicyServiceInjector
     {
         [ExcludeFromCodeCoverage]
-        public static void AddMasterData<TLoggerCategory>(this IServiceCollection services, IConfiguration config)
+        public static void AddPolicy<TLoggerCategory>(this IServiceCollection services, IConfiguration config)
         {
             var serviceType = config.GetServiceType();
 
             switch (serviceType)
             {
                 case ApiServiceType.ServiceEF:
-                    services.AddTransient<IMasterDataService, MasterDataServiceEF<TLoggerCategory>>();
+                    services.AddTransient<IPolicyService, PolicyServiceEF<TLoggerCategory>>();
                     break;
                 case ApiServiceType.ServiceMock:
-                    services.AddTransient<IMasterDataService, MasterDataServiceMock<TLoggerCategory>>();
+                    services.AddTransient<IPolicyService, PolicyServiceMock<TLoggerCategory>>();
                     break;
                 default:
                     throw new InjectException(
                         UtilResources.Get("Common.InjectException",
-                        nameof(IMasterDataService))
+                        nameof(IPolicyService))
                     );
             }
         }

@@ -6,7 +6,7 @@ namespace Gap.Insurance.Model
     {
         public int PolicyId { get; set; }
         public int RiskId { get; set; }
-        public int RiskDescripition { get; set; }
+        public string RiskDescripition { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Periods { get; set; }

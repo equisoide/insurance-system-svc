@@ -9,9 +9,9 @@ namespace Gap.Insurance.Core
 {
     public static class ServiceHandler
     {
-        public static void AddCoreServices(this IServiceCollection services, IConfiguration config)
+        public static void AddCoreServices<TLoggerCategory>(this IServiceCollection services, IConfiguration config)
         {
-            services.AddCoreServices<IMasterDataService, InsuranceDbContext>(config)
+            services.AddCoreServices<TLoggerCategory, InsuranceDbContext>(config)
                 .AddAutomapper(config =>
                 {
                     config.MapPayloadsToEntities();
@@ -34,7 +34,8 @@ namespace Gap.Insurance.Core
                 })
                 .AddBusinesServices(config =>
                 {
-                    services.AddMasterData<IMasterDataService>(config);
+                    services.AddMasterData<TLoggerCategory>(config);
+                    services.AddPolicy<TLoggerCategory>(config);
                 });
         }
     }

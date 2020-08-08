@@ -13,11 +13,13 @@ namespace Gap.Insurance.Core
     public class MasterDataServiceMock<TLoggerCategory>
         : MasterDataServiceBase<TLoggerCategory, DbContext>
     {
-        private readonly IEnumerable<Risk> _risks = null;
-        private readonly IEnumerable<Coverage> _coverages = null;
+        private IEnumerable<Risk> _risks;
+        private IEnumerable<Coverage> _coverages;
 
         public MasterDataServiceMock(ApiServiceArgs<TLoggerCategory> args)
-            : base(args)
+            : base(args) => LoadMockedData();
+
+        private void LoadMockedData()
         {
             _risks = EmbeddedFileUtility.ReadJson<IEnumerable<Risk>>(
                 "MockData.Risk.json", typeof(InsuranceResources).Assembly

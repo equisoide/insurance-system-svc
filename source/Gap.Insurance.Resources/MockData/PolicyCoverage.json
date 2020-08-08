@@ -1,0 +1,98 @@
+﻿[
+  {
+    "PolicyCoverageId": 1,
+    "PolicyId": 1,
+    "CoverageId": 1,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 2,
+    "PolicyId": 1,
+    "CoverageId": 2,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 3,
+    "PolicyId": 1,
+    "CoverageId": 3,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 4,
+    "PolicyId": 1,
+    "CoverageId": 4,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 5,
+    "PolicyId": 2,
+    "CoverageId": 1,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 6,
+    "PolicyId": 2,
+    "CoverageId": 2,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 7,
+    "PolicyId": 2,
+    "CoverageId": 3,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 8,
+    "PolicyId": 2,
+    "CoverageId": 4,
+    "Percentage": 100
+  },
+  {
+    "PolicyCoverageId": 9,
+    "PolicyId": 3,
+    "CoverageId": 1,
+    "Percentage": 50
+  },
+  {
+    "PolicyCoverageId": 10,
+    "PolicyId": 3,
+    "CoverageId": 2,
+    "Percentage": 50
+  },
+  {
+    "PolicyCoverageId": 11,
+    "PolicyId": 3,
+    "CoverageId": 3,
+    "Percentage": 50
+  },
+  {
+    "PolicyCoverageId": 12,
+    "PolicyId": 3,
+    "CoverageId": 4,
+    "Percentage": 50
+  },
+  {
+    "PolicyCoverageId": 13,
+    "PolicyId": 4,
+    "CoverageId": 1,
+    "Percentage": 40
+  },
+  {
+    "PolicyCoverageId": 14,
+    "PolicyId": 4,
+    "CoverageId": 2,
+    "Percentage": 40
+  },
+  {
+    "PolicyCoverageId": 15,
+    "PolicyId": 4,
+    "CoverageId": 3,
+    "Percentage": 40
+  },
+  {
+    "PolicyCoverageId": 16,
+    "PolicyId": 4,
+    "CoverageId": 4,
+    "Percentage": 40
+  }
+]
