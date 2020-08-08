@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Gap.Insurance.Api
+namespace Gap.Insurance.RestApi
 {
     public class Startup
     {

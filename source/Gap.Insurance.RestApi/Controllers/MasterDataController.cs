@@ -6,7 +6,7 @@ using Gap.Insurance.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Gap.Insurance.Api
+namespace Gap.Insurance.RestApi
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Gap.Insurance.Api
+namespace Gap.Insurance.RestApi
 {
     public static class Program
     {
