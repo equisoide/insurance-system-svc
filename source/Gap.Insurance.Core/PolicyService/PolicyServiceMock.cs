@@ -12,14 +12,14 @@ namespace Gap.Insurance.Core
     public class PolicyServiceMock<TLoggerCategory>
         : PolicyServiceBase<TLoggerCategory, DbContext>
     {
-        private IEnumerable<Policy> _policies;
+        private ICollection<Policy> _policies;
 
         public PolicyServiceMock(ApiServiceArgs<TLoggerCategory> args, IMasterDataService masterDataSvc)
             : base(args, masterDataSvc) => LoadMockedData();
 
         private void LoadMockedData()
         {
-            _policies = EmbeddedFileUtility.ReadJson<IEnumerable<Policy>>(
+            _policies = EmbeddedFileUtility.ReadJson<ICollection<Policy>>(
                 "MockData.Policy.json", typeof(InsuranceResources).Assembly
             );
 
@@ -45,7 +45,21 @@ namespace Gap.Insurance.Core
             }
         }
 
+        protected override async Task<Policy> GetPolicyFromSourceAsync(string name)
+        {
+            var policy = _policies.FirstOrDefault(p => p.Name == name);
+            return await Task.FromResult(policy);
+        }
+
         protected override async Task<IEnumerable<Policy>> GetPoliciesFromSourceAsync()
             => await Task.FromResult(_policies);
+
+        protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
+        {
+            if (operation == ApiChangeAction.Insert)
+                _policies.Add(entity as Policy);
+
+            await Task.FromResult(0);
+        }
     }
 }

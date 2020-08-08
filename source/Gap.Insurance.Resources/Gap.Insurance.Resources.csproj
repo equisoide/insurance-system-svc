@@ -20,7 +20,7 @@
     <None Remove="MockData\Policy.json" />
     <None Remove="MockData\PolicyCoverage.json" />
     <None Remove="MockData\Risk.json" />
-    <None Remove="StringLocalization\InsuranceResources.json" />
+    <None Remove="Resources\InsuranceResources.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +28,7 @@
     <EmbeddedResource Include="MockData\PolicyCoverage.json" />
     <EmbeddedResource Include="MockData\Policy.json" />
     <EmbeddedResource Include="MockData\Risk.json" />
-    <EmbeddedResource Include="StringLocalization\InsuranceResources.json" />
+    <EmbeddedResource Include="Resources\InsuranceResources.json" />
   </ItemGroup>
 
   <ItemGroup>
