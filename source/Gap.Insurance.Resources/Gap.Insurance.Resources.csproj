@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Authors>Juan Cuartas</Authors>
     <Company>Gap</Company>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <version>0.0.1</version>
   </PropertyGroup>
 
@@ -31,10 +31,6 @@
 
   <ItemGroup>
     <PackageReference Include="Celerik.NetCore.Util" Version="2.3.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
