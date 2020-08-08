@@ -1,0 +1,18 @@
+﻿[
+  {
+    "CoverageId": 1,
+    "Description": "Earthquake"
+  },
+  {
+    "CoverageId": 2,
+    "Description": "Fire"
+  },
+  {
+    "CoverageId": 3,
+    "Description": "Lost"
+  },
+  {
+    "CoverageId": 4,
+    "Description": "Theft"
+  }
+]

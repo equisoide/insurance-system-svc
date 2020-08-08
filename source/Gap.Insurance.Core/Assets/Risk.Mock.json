@@ -1,0 +1,22 @@
+﻿[
+  {
+    "CoverageId": 1,
+    "Description": "Low",
+    "MaxCoverage":  100
+  },
+  {
+    "CoverageId": 2,
+    "Description": "Medium",
+    "MaxCoverage": 100
+  },
+  {
+    "CoverageId": 3,
+    "Description": "Medium-High",
+    "MaxCoverage": 100
+  },
+  {
+    "CoverageId": 4,
+    "Description": "High",
+    "MaxCoverage": 50
+  }
+]

@@ -16,10 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Coverage.Mock.json" />
+    <None Remove="Assets\Risk.Mock.json" />
     <None Remove="Resources\CoreResources.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Coverage.Mock.json" />
+    <EmbeddedResource Include="Assets\Risk.Mock.json" />
     <EmbeddedResource Include="Resources\CoreResources.json" />
   </ItemGroup>
 
