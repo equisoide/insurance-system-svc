@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.EntityFramework
 {
@@ -152,6 +150,8 @@ namespace Gap.Insurance.EntityFramework
                 entity.HasIndex(e => e.Description)
                     .HasName("UK_Risk_Description")
                     .IsUnique();
+
+                entity.Property(e => e.MaxCoverage).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.RiskId).ValueGeneratedNever();
 
