@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
+    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "The payload is validated in the call to Validate(payload)")]
     public class PolicyServiceMock<TLoggerCategory>
         : PolicyServiceBase<TLoggerCategory, DbContext>
     {
@@ -57,7 +59,11 @@ namespace Gap.Insurance.Core
         protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
         {
             if (operation == ApiChangeAction.Insert)
-                _policies.Add(entity as Policy);
+            {
+                var policy = entity as Policy;
+                policy.PolicyId = _policies.Max(p => p.PolicyId) + 1;
+                _policies.Add(policy);
+            }
 
             await Task.FromResult(0);
         }
