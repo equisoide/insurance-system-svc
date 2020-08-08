@@ -1,21 +1,21 @@
 ﻿[
   {
-    "CoverageId": 1,
+    "RiskId": 1,
     "Description": "Low",
     "MaxCoverage":  100
   },
   {
-    "CoverageId": 2,
+    "RiskId": 2,
     "Description": "Medium",
     "MaxCoverage": 100
   },
   {
-    "CoverageId": 3,
+    "RiskId": 3,
     "Description": "Medium-High",
     "MaxCoverage": 100
   },
   {
-    "CoverageId": 4,
+    "RiskId": 4,
     "Description": "High",
     "MaxCoverage": 50
   }
