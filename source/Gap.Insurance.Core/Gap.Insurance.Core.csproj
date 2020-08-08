@@ -16,6 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\CoreResources.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CoreResources.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Celerik.NetCore.Services" Version="2.5.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
