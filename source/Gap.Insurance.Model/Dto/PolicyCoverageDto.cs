@@ -2,7 +2,7 @@
 {
     public class PolicyCoverageDto
     {
-        public int CoverageId { get; set; }
+        public int PolicyCoverageId { get; set; }
         public string CoverageDescription { get; set; }
         public decimal Percentage { get; set; } 
     }
