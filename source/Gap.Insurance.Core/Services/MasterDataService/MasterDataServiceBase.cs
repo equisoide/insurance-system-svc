@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
-    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "The payload is validated in the call to Validate(payload)")]
     public abstract class MasterDataServiceBase<TLoggerCategory, TDbContext>
         : ApiServiceEF<TLoggerCategory, CoreResources, TDbContext>, IMasterDataService
             where TDbContext : DbContext
