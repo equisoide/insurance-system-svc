@@ -1,20 +1,20 @@
 ﻿[
   {
-    "ClientPolicy": 1,
+    "ClientPolicyId": 1,
     "ClientId": 1,
     "PolicyId": 1,
     "PolicyStatusId": 2,
     "StartDate": "2019-01-01 00:00:00.000"
   },
   {
-    "ClientPolicy": 2,
+    "ClientPolicyId": 2,
     "ClientId": 1,
     "PolicyId": 1,
     "PolicyStatusId": 1,
     "StartDate": "2020-01-01 00:00:00.000"
   },
   {
-    "ClientPolicy": 3,
+    "ClientPolicyId": 3,
     "ClientId": 2,
     "PolicyId": 4,
     "PolicyStatusId": 1,

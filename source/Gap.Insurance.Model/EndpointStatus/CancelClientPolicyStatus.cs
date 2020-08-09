@@ -5,7 +5,7 @@
         BadRequest = 400,
         ClientPolicyIdFormat = 461,
         ClientPolicyIdNotFound = 484,
-        ClientPolicyAlreadyCancelled = 485,
+        ClientPolicyNotActive = 485,
         CancelClientPolicyOk = 200
     }
 }

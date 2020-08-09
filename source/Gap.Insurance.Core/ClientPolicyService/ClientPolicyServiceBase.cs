@@ -144,14 +144,14 @@ namespace Gap.Insurance.Core
                 return response;
             }
 
-            if (clientPolicy.PolicyStatusId == Constants.ExpiredPolicyStatusId)
+            if (clientPolicy.PolicyStatusId != Constants.ActivePolicyStatusId)
             {
-                response = Error(CancelClientPolicyStatus.ClientPolicyAlreadyCancelled);
+                response = Error(CancelClientPolicyStatus.ClientPolicyNotActive);
                 EndLog();
                 return response;
             }
 
-            clientPolicy.PolicyStatusId = Constants.ExpiredPolicyStatusId;
+            clientPolicy.PolicyStatusId = Constants.CancelledPolicyStatusId;
             await SaveAsync(ApiChangeAction.Update, clientPolicy);
             clientPolicy = await GetClientPolicyById(payload.ClientPolicyId);
 

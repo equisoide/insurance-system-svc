@@ -30,7 +30,6 @@ namespace Gap.Insurance.Test
         {
             var policySvc = GetService<IPolicyService>();
             var payload = new DeletePolicyPayload { PolicyId = -1 };
-            payload.PolicyId = -1;
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
@@ -44,8 +43,7 @@ namespace Gap.Insurance.Test
         public async Task PolicyIdNotFound()
         {
             var policySvc = GetService<IPolicyService>();
-            var payload = new DeletePolicyPayload { PolicyId = 111 };
-            payload.PolicyId = 11;
+            var payload = new DeletePolicyPayload { PolicyId = 11 };
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
@@ -60,7 +58,6 @@ namespace Gap.Insurance.Test
         {
             var policySvc = GetService<IPolicyService>();
             var payload = new DeletePolicyPayload { PolicyId = 1 };
-            payload.PolicyId = 1;
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
