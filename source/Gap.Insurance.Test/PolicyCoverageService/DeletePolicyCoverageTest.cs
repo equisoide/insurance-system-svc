@@ -42,7 +42,7 @@ namespace Gap.Insurance.Test
         public async Task PolicyCoverageIdNotFound()
         {
             var PolicyCoverageSvc = GetService<IPolicyCoverageService>();
-            var payload = new DeletePolicyCoveragePayload { PolicyCoverageId = 11 };
+            var payload = new DeletePolicyCoveragePayload { PolicyCoverageId = 100 };
             var response = await PolicyCoverageSvc.DeletePolicyCoverageAsync(payload);
 
             Assert.AreEqual(null, response.Data);
