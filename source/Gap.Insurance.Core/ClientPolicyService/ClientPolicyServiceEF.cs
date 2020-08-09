@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
-using Gap.Insurance.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
@@ -15,8 +14,9 @@ namespace Gap.Insurance.Core
     {
         public ClientPolicyServiceEF(
             ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args,
-            IMasterDataService masterDataSvc)
-            : base(args, masterDataSvc) { }
+            IMasterDataService masterDataSvc,
+            IClientService clientSvc)
+            : base(args, masterDataSvc, clientSvc) { }
 
         protected override async Task<bool> CheckPolicyUsage(int policyId)
             => await DbContext.ClientPolicy.AnyAsync(cp => cp.PolicyId == policyId);

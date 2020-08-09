@@ -1,9 +1,9 @@
 ﻿namespace Gap.Insurance.Model
 {
-    public enum GetClientPoliciesStatus
+    public enum GetPolicyStatus
     {
         BadRequest = 400,
-        ClientIdFormat = 461,
+        PolicyIdFormat = 461,
         Ok = 200
     }
 }

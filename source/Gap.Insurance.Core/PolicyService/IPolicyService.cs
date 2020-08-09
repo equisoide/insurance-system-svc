@@ -7,6 +7,7 @@ namespace Gap.Insurance.Core
 {
     public interface IPolicyService
     {
+        Task<ApiResponse<PolicyDto, GetPolicyStatus>> GetPolicyAsync(GetPolicyPayload payload);
         Task<ApiResponse<IEnumerable<PolicyDto>, GetPoliciesStatus>> GetPoliciesAsync();
         Task<ApiResponse<PolicyDto, CreatePolicyStatus>> CreatePolicyAsync(CreatePolicyPayload payload);
         Task<ApiResponse<PolicyDto, UpdatePolicyStatus>> UpdatePolicyAsync(UpdatePolicyPayload payload);

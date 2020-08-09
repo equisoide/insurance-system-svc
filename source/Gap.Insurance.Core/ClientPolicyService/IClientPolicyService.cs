@@ -9,7 +9,7 @@ namespace Gap.Insurance.Core
     {
         Task<ApiResponse<PolicyUsageDto, CheckPolicyUsageStatus>> CheckPolicyUsageAsync(CheckPolicyUsagePayload payload);
         Task<ApiResponse<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>> GetClientPoliciesAsync(GetClientPoliciesPayload payload);
-        Task<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>> CreateClientPolicyAsync(CreatePolicyPayload payload);
-        Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(UpdatePolicyPayload payload);
+        Task<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>> CreateClientPolicyAsync(CreateClientPolicyPayload payload);
+        Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(CancelClientPolicyPayload payload);
     }
 }

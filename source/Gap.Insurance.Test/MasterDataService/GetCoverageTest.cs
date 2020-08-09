@@ -61,6 +61,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(payload.CoverageId, response.Data.CoverageId);
             Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(GetCoverageStatus.Ok, response.StatusCode);
         }
 
@@ -72,6 +74,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(true, response.Data.Count() > 0);
             Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(GetCoveragesStatus.Ok, response.StatusCode);
         }
     }

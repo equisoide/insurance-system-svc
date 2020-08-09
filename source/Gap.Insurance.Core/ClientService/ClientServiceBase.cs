@@ -31,18 +31,23 @@ namespace Gap.Insurance.Core
                 response = Error<SearchClientStatus>(message, property);
             else
             {
-                var clients = (await SearchClient(payload.Keyword)).OrderBy(c => c.Name);
+                var clients = payload.ClientId == 0
+                    ? (await SearchClientByKeyWord(payload.Keyword)).OrderBy(c => c.Name)
+                    : (await SearchClientById(payload.ClientId));
 
-                if (!clients.Any())
-                    response = Error(SearchClientStatus.NoSearchResults);
-                else
-                    response = Ok<IEnumerable<ClientDto>, SearchClientStatus>(clients, SearchClientStatus.Ok);
+                response = new ApiResponse<IEnumerable<ClientDto>, SearchClientStatus>
+                {
+                    Data = Mapper.Map<IEnumerable<ClientDto>>(clients),
+                    StatusCode = SearchClientStatus.Ok,
+                    Success = true
+                };
             }
 
             EndLog();
             return response;
         }
 
-        protected abstract Task<IEnumerable<Client>> SearchClient(string keyword);
+        protected abstract Task<IEnumerable<Client>> SearchClientById(int clientId);
+        protected abstract Task<IEnumerable<Client>> SearchClientByKeyWord(string keyword);
     }
 }

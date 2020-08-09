@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.Core;
 using Gap.Insurance.Model;
@@ -47,8 +46,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(false, response.Data.IsInUse);
             Assert.AreEqual(true, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Success, response.MessageType);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(CheckPolicyUsageStatus.Ok, response.StatusCode);
         }
 
@@ -61,8 +60,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(true, response.Data.IsInUse);
             Assert.AreEqual(true, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Success, response.MessageType);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(CheckPolicyUsageStatus.Ok, response.StatusCode);
         }
     }

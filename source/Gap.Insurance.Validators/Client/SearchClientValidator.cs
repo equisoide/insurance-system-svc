@@ -7,10 +7,15 @@ namespace Gap.Insurance.Validators
     {
         public SearchClientValidator()
         {
+            RuleFor(payload => payload.ClientId)
+                .GreaterThan(0)
+                .When(payload => payload.Keyword == null);
+
             RuleFor(payload => payload.Keyword)
                 .NotNull()
                 .NotEmpty()
-                .MinimumLength(3);
+                .MinimumLength(3)
+                .When(payload => payload.ClientId == 0);
         }
     }
 }

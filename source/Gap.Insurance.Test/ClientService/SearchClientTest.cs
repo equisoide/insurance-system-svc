@@ -25,7 +25,7 @@ namespace Gap.Insurance.Test
         }
 
         [TestMethod]
-        public async Task NullKeyword()
+        public async Task NoCriteria()
         {
             var clientServiceSvc = GetService<IClientService>();
             var payload = new SearchClientPayload { };
@@ -35,7 +35,7 @@ namespace Gap.Insurance.Test
             Assert.AreEqual(false, response.Success);
             Assert.AreNotEqual(null, response.Message);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
-            Assert.AreEqual(SearchClientStatus.KeywordFormat, response.StatusCode);
+            Assert.AreEqual(SearchClientStatus.ClientIdFormat, response.StatusCode);
         }
 
         [TestMethod]
@@ -75,8 +75,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(1, response.Data.Count());
             Assert.AreEqual(true, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Success, response.MessageType);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(SearchClientStatus.Ok, response.StatusCode);
         }
 
@@ -89,8 +89,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(4, response.Data.Count());
             Assert.AreEqual(true, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Success, response.MessageType);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(SearchClientStatus.Ok, response.StatusCode);
         }
     }

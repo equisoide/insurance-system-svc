@@ -28,6 +28,7 @@ namespace Gap.Insurance.Core
                     services.AddValidator<DeletePolicyPayload, DeletePolicyValidator>();
                     services.AddValidator<GetClientPoliciesPayload, GetClientPoliciesValidator>();
                     services.AddValidator<GetCoveragePayload, GetCoverageValidator>();
+                    services.AddValidator<GetPolicyPayload, GetPolicyValidator>();
                     services.AddValidator<GetRiskPayload, GetRiskValidator>();
                     services.AddValidator<SearchClientPayload, SearchClientValidator>();
                     services.AddValidator<UpdatePolicyCoveragePayload, UpdatePolicyCoverageValidator>();

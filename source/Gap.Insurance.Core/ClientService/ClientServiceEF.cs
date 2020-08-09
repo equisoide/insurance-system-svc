@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
-using Gap.Insurance.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
@@ -16,7 +15,12 @@ namespace Gap.Insurance.Core
         public ClientServiceEF(ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args)
             : base(args) { }
 
-        protected override async Task<IEnumerable<Client>> SearchClient(string keyword)
+        protected override async Task<IEnumerable<Client>> SearchClientById(int clientId)
+            => await DbContext.Client
+                .Where(c => c.ClientId == clientId)
+                .ToListAsync();
+
+        protected override async Task<IEnumerable<Client>> SearchClientByKeyWord(string keyword)
             => await DbContext.Client
                 .Where(c => c.Document.Contains(keyword)
                     || c.Name.Contains(keyword)

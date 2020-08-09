@@ -39,12 +39,39 @@ namespace Gap.Insurance.Core
             _clientPolicySvc = clientPolicySvc;
         }
 
+        public async Task<ApiResponse<PolicyDto, GetPolicyStatus>> GetPolicyAsync(GetPolicyPayload payload)
+        {
+            StartLog();
+            ApiResponse<PolicyDto, GetPolicyStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+                response = Error<GetPolicyStatus>(message, property);
+            else
+            {
+                var policy = await GetPolicyById(payload.PolicyId);
+                response = new ApiResponse<PolicyDto, GetPolicyStatus>
+                {
+                    Data = Mapper.Map<PolicyDto>(policy),
+                    StatusCode = GetPolicyStatus.Ok,
+                    Success = true
+                };
+            }
+
+            EndLog();
+            return response;
+        }
+
         public async Task<ApiResponse<IEnumerable<PolicyDto>, GetPoliciesStatus>> GetPoliciesAsync()
         {
             StartLog();
 
             var policies = (await GetPolicies()).OrderBy(p => p.Name);
-            var response = Ok<IEnumerable<PolicyDto>, GetPoliciesStatus>(policies, GetPoliciesStatus.Ok);
+            var response = new ApiResponse<IEnumerable<PolicyDto>, GetPoliciesStatus>
+            {
+                Data = Mapper.Map<IEnumerable<PolicyDto>>(policies),
+                StatusCode = GetPoliciesStatus.Ok,
+                Success = true
+            };
 
             EndLog();
             return response;

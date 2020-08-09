@@ -36,7 +36,12 @@ namespace Gap.Insurance.Core
                 if (risk == null)
                     response = Error(GetRiskStatus.RiskIdNotFound);
                 else
-                    response = Ok<RiskDto, GetRiskStatus>(risk, GetRiskStatus.Ok);
+                    response = new ApiResponse<RiskDto, GetRiskStatus>
+                    {
+                        Data = Mapper.Map<RiskDto>(risk),
+                        StatusCode = GetRiskStatus.Ok,
+                        Success = true
+                    };
             }
 
             EndLog();
@@ -48,7 +53,12 @@ namespace Gap.Insurance.Core
             StartLog();
 
             var risks = (await GetRisks()).OrderBy(r => r.RiskId);
-            var response = Ok<IEnumerable<RiskDto>, GetRisksStatus>(risks, GetRisksStatus.Ok);
+            var response = new ApiResponse<IEnumerable<RiskDto>, GetRisksStatus>
+            {
+                Data = Mapper.Map<IEnumerable<RiskDto>>(risks),
+                StatusCode = GetRisksStatus.Ok,
+                Success = true
+            };
 
             EndLog();
             return response;
@@ -68,7 +78,12 @@ namespace Gap.Insurance.Core
                 if (coverage == null)
                     response = Error(GetCoverageStatus.CoverageIdNotFound);
                 else
-                    response = Ok<CoverageDto, GetCoverageStatus>(coverage, GetCoverageStatus.Ok);
+                    response = new ApiResponse<CoverageDto, GetCoverageStatus>
+                    {
+                        Data = Mapper.Map<CoverageDto>(coverage),
+                        StatusCode = GetCoverageStatus.Ok,
+                        Success = true
+                    };
             }
 
             EndLog();
@@ -80,7 +95,12 @@ namespace Gap.Insurance.Core
             StartLog();
 
             var coverages = (await GetCoverages()).OrderBy(c => c.Description);
-            var response = Ok<IEnumerable<CoverageDto>, GetCoveragesStatus>(coverages, GetCoveragesStatus.Ok);
+            var response = new ApiResponse<IEnumerable<CoverageDto>, GetCoveragesStatus>
+            {
+                Data = Mapper.Map<IEnumerable<CoverageDto>>(coverages),
+                StatusCode = GetCoveragesStatus.Ok,
+                Success = true
+            };
 
             EndLog();
             return response;

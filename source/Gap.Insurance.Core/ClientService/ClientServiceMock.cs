@@ -16,7 +16,13 @@ namespace Gap.Insurance.Core
         public ClientServiceMock(ApiServiceArgs<TLoggerCategory> args)
             : base(args) { }
 
-        protected override Task<IEnumerable<Client>> SearchClient(string keyword)
+        protected override Task<IEnumerable<Client>> SearchClientById(int clientId)
+        {
+            var clients = MockData.Clients.Where(c => c.ClientId == clientId);
+            return Task.FromResult(clients);
+        }
+
+        protected override Task<IEnumerable<Client>> SearchClientByKeyWord(string keyword)
         {
             keyword = keyword.ToLower();
 

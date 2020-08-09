@@ -61,6 +61,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(payload.RiskId, response.Data.RiskId);
             Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(GetRiskStatus.Ok, response.StatusCode);
         }
 
@@ -72,6 +74,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(true, response.Data.Count() > 0);
             Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(GetRisksStatus.Ok, response.StatusCode);
         }
     }

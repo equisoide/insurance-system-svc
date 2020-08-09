@@ -45,11 +45,11 @@ namespace Gap.Insurance.Test
             var payload = new GetClientPoliciesPayload { ClientId = 10 };
             var response = await clientPolicyServiceSvc.GetClientPoliciesAsync(payload);
 
-            Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(false, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
-            Assert.AreEqual(GetClientPoliciesStatus.NoPoliciesFound, response.StatusCode);
+            Assert.AreEqual(0, response.Data.Count());
+            Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
+            Assert.AreEqual(GetClientPoliciesStatus.Ok, response.StatusCode);
         }
 
         [TestMethod]
@@ -61,8 +61,8 @@ namespace Gap.Insurance.Test
 
             Assert.AreNotEqual(null, response.Data);
             Assert.AreEqual(true, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Success, response.MessageType);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
             Assert.AreEqual(GetClientPoliciesStatus.Ok, response.StatusCode);
         }
     }

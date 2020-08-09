@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
@@ -16,22 +15,27 @@ namespace Gap.Insurance.Core
             where TDbContext : DbContext
     {
         private readonly IMasterDataService _masterDataSvc;
+        private readonly IClientService _clientSvc;
 
         public ClientPolicyServiceBase(
             ApiServiceArgs<TLoggerCategory> args,
-            IMasterDataService masterDataSvc)
+            IMasterDataService masterDataSvc,
+            IClientService clientSvc)
             : base(args)
         {
             _masterDataSvc = masterDataSvc;
+            _clientSvc = clientSvc;
         }
 
         [ExcludeFromCodeCoverage]
         public ClientPolicyServiceBase(
             ApiServiceArgsEF<TLoggerCategory, TDbContext> args,
-            IMasterDataService masterDataSvc)
+            IMasterDataService masterDataSvc,
+            IClientService clientSvc)
             : base(args)
         {
             _masterDataSvc = masterDataSvc;
+            _clientSvc = clientSvc;
         }
 
         public async Task<ApiResponse<PolicyUsageDto, CheckPolicyUsageStatus>> CheckPolicyUsageAsync(CheckPolicyUsagePayload payload)
@@ -44,8 +48,13 @@ namespace Gap.Insurance.Core
             else
             {
                 var isInUse = await CheckPolicyUsage(payload.PolicyId);
-                var dto = new PolicyUsageDto { IsInUse = isInUse };
-                response = Ok<PolicyUsageDto, CheckPolicyUsageStatus>(dto, CheckPolicyUsageStatus.Ok);
+
+                response = new ApiResponse<PolicyUsageDto, CheckPolicyUsageStatus>
+                {
+                    Data = new PolicyUsageDto { IsInUse = isInUse },
+                    StatusCode = CheckPolicyUsageStatus.Ok,
+                    Success = true
+                };
             }
 
             EndLog();
@@ -62,23 +71,24 @@ namespace Gap.Insurance.Core
             else
             {
                 var policies = await GetClientPolicies(payload.ClientId);
-
-                if (!policies.Any())
-                    response = Error(GetClientPoliciesStatus.NoPoliciesFound);
-                else
-                    response = Ok<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>(policies, GetClientPoliciesStatus.Ok);
+                response = new ApiResponse<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>
+                {
+                    Data = Mapper.Map<IEnumerable<ClientPolicyDto>>(policies),
+                    StatusCode = GetClientPoliciesStatus.Ok,
+                    Success = true
+                };
             }
 
             EndLog();
             return response;
         }
 
-        public Task<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>> CreateClientPolicyAsync(CreatePolicyPayload payload)
+        public Task<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>> CreateClientPolicyAsync(CreateClientPolicyPayload payload)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(UpdatePolicyPayload payload)
+        public Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(CancelClientPolicyPayload payload)
         {
             throw new System.NotImplementedException();
         }

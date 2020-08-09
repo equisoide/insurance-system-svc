@@ -1,7 +1,7 @@
 ﻿using Celerik.NetCore.Services;
+using Gap.Insurance.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Gap.Insurance.Core;
 
 namespace Gap.Insurance.Test
 {

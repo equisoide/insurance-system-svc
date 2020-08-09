@@ -3,8 +3,8 @@
     public enum SearchClientStatus
     {
         BadRequest = 400,
-        KeywordFormat = 461,
-        NoSearchResults = 484,
+        ClientIdFormat = 461,
+        KeywordFormat = 462,
         Ok = 200
     }
 }

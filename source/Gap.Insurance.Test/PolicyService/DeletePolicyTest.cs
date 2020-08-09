@@ -19,9 +19,10 @@ namespace Gap.Insurance.Test
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(DeletePolicyStatus.BadRequest, response.StatusCode);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
+            Assert.AreNotEqual(null, response.Message);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(DeletePolicyStatus.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
@@ -33,9 +34,10 @@ namespace Gap.Insurance.Test
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(DeletePolicyStatus.PolicyIdFormat, response.StatusCode);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
+            Assert.AreNotEqual(null, response.Message);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(DeletePolicyStatus.PolicyIdFormat, response.StatusCode);
         }
 
         [TestMethod]
@@ -47,9 +49,10 @@ namespace Gap.Insurance.Test
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(DeletePolicyStatus.PolicyIdNotFound, response.StatusCode);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
+            Assert.AreNotEqual(null, response.Message);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(DeletePolicyStatus.PolicyIdNotFound, response.StatusCode);
         }
 
         [TestMethod]
@@ -61,9 +64,10 @@ namespace Gap.Insurance.Test
             var response = await policySvc.DeletePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(DeletePolicyStatus.PolicyInUse, response.StatusCode);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
+            Assert.AreNotEqual(null, response.Message);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(DeletePolicyStatus.PolicyInUse, response.StatusCode);
         }
 
         [TestMethod]
