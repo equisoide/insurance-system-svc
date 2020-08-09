@@ -12,6 +12,7 @@
         PolicyIdNotFound = 484,
         RiskIdNotFound = 485,
         NameAlreadyTaken = 486,
+        PolicyInUse = 487,
         UpdatePolicyOk = 200
     }
 }

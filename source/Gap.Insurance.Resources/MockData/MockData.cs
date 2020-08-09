@@ -17,6 +17,11 @@ namespace Gap.Insurance.Resources
                 "MockData.Coverage.json", typeof(InsuranceResources).Assembly
             );
 
+        public static IEnumerable<PolicyStatus> PolicyStatus =
+            EmbeddedFileUtility.ReadJson<IEnumerable<PolicyStatus>>(
+                "MockData.PolicyStatus.json", typeof(InsuranceResources).Assembly
+            );
+
         public static ICollection<Policy> Policies =
             EmbeddedFileUtility.ReadJson<ICollection<Policy>>(
                 "MockData.Policy.json", typeof(InsuranceResources).Assembly
@@ -27,10 +32,18 @@ namespace Gap.Insurance.Resources
                  "MockData.PolicyCoverage.json", typeof(InsuranceResources).Assembly
              );
 
+        public static ICollection<ClientPolicy> ClientPolicies =
+            EmbeddedFileUtility.ReadJson<ICollection<ClientPolicy>>(
+                 "MockData.ClientPolicy.json", typeof(InsuranceResources).Assembly
+             );
+
         static MockData()
         {
             foreach (var policy in Policies)
                 AddRelatedData(policy);
+
+            foreach (var clientPolicy in ClientPolicies)
+                AddRelatedData(clientPolicy);
         }
 
         public static void AddRelatedData(Policy policy)
@@ -44,6 +57,14 @@ namespace Gap.Insurance.Resources
             foreach (var policyCoverage in policy.PolicyCoverage)
                 policyCoverage.Coverage = Coverages.First(
                     c => c.CoverageId == policyCoverage.CoverageId);
+        }
+
+        public static void AddRelatedData(ClientPolicy clientPolicy)
+        {
+            clientPolicy.Policy = Policies
+                .First(p => p.PolicyId == clientPolicy.PolicyId);
+            clientPolicy.PolicyStatus = PolicyStatus
+                .First(ps => ps.PolicyStatusId == clientPolicy.PolicyStatusId);
         }
     }
 }

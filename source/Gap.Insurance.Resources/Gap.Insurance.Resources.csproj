@@ -16,15 +16,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MockData\ClientPolicy.json" />
     <None Remove="MockData\Coverage.json" />
     <None Remove="MockData\Policy.json" />
     <None Remove="MockData\PolicyCoverage.json" />
+    <None Remove="MockData\PolicyStatus.json" />
     <None Remove="MockData\Risk.json" />
     <None Remove="Resources\InsuranceResources.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="MockData\ClientPolicy.json" />
     <EmbeddedResource Include="MockData\Coverage.json" />
+    <EmbeddedResource Include="MockData\PolicyStatus.json" />
     <EmbeddedResource Include="MockData\PolicyCoverage.json" />
     <EmbeddedResource Include="MockData\Policy.json" />
     <EmbeddedResource Include="MockData\Risk.json" />

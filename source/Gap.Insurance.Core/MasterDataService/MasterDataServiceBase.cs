@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
+    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "The payload is validated in the call to Validate(payload)")]
     public abstract class MasterDataServiceBase<TLoggerCategory, TDbContext>
         : ApiServiceEF<TLoggerCategory, InsuranceResources, TDbContext>, IMasterDataService
             where TDbContext : DbContext
@@ -30,7 +31,7 @@ namespace Gap.Insurance.Core
                 response = Error<GetRiskStatus>(message, property);
             else
             {
-                var risk = await GetRisk(payload);
+                var risk = await GetRiskById(payload.RiskId);
 
                 if (risk == null)
                     response = Error(GetRiskStatus.RiskIdNotFound);
@@ -62,7 +63,7 @@ namespace Gap.Insurance.Core
                 response = Error<GetCoverageStatus>(message, property);
             else
             {
-                var coverage = await GetCoverage(payload);
+                var coverage = await GetCoverageById(payload.CoverageId);
 
                 if (coverage == null)
                     response = Error(GetCoverageStatus.CoverageIdNotFound);
@@ -85,9 +86,9 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public abstract Task<Risk> GetRisk(GetRiskPayload payload);
+        public abstract Task<Risk> GetRiskById(int riskId);
         protected abstract Task<IEnumerable<Risk>> GetRisks();
-        public abstract Task<Coverage> GetCoverage(GetCoveragePayload payload);
+        public abstract Task<Coverage> GetCoverageById(int coverageId);
         protected abstract Task<IEnumerable<Coverage>> GetCoverages();
     }
 }

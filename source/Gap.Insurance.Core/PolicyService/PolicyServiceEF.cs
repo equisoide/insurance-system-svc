@@ -11,8 +11,11 @@ namespace Gap.Insurance.Core
     public class PolicyServiceEF<TLoggerCategory>
         : PolicyServiceBase<TLoggerCategory, InsuranceDbContext>
     {
-        public PolicyServiceEF(ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args, IMasterDataService masterDataSvc)
-            : base(args, masterDataSvc) { }
+        public PolicyServiceEF(
+            ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args,
+            IMasterDataService masterDataSvc,
+            IClientPolicyService clientPolicySvc)
+            : base(args, masterDataSvc, clientPolicySvc) { }
 
         protected override async Task<bool> ExistsPolicyId(int policyId)
             => await DbContext.Policy.AnyAsync(p => p.PolicyId == policyId);
@@ -24,8 +27,8 @@ namespace Gap.Insurance.Core
                 .Include("PolicyCoverage.Coverage")
                 .FirstOrDefaultAsync(p => p.PolicyId == policyId);
 
-        protected override async Task<Policy> GetPolicyByName(string name)
-            => await DbContext.Policy.FirstOrDefaultAsync(p => p.Name == name);
+        protected override async Task<Policy> GetPolicyByName(string policyName)
+            => await DbContext.Policy.FirstOrDefaultAsync(p => p.Name == policyName);
 
         protected override async Task<IEnumerable<Policy>> GetPolicies()
             => await DbContext.Policy

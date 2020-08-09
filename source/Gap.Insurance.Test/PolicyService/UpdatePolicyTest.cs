@@ -14,11 +14,11 @@ namespace Gap.Insurance.Test
         private UpdatePolicyPayload GetValidPayload() =>
             new UpdatePolicyPayload
             {
-                PolicyId = 1,
-                Description = "All covered 100%, medium risk, 1 year",
-                Name = "All Low Risk 12 Vip",
-                Periods = 12,
-                Price = 750,
+                PolicyId = 2,
+                Description = "All covered 100%, low risk, 6 months",
+                Name = "All Low Risk 6 Vip",
+                Periods = 6,
+                Price = 300,
                 RiskId = 2
             };
 
@@ -185,6 +185,20 @@ namespace Gap.Insurance.Test
 
             Assert.AreEqual(null, response.Data);
             Assert.AreEqual(UpdatePolicyStatus.PolicyIdNotFound, response.StatusCode);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(false, response.Success);
+        }
+
+        [TestMethod]
+        public async Task PolicyInUse()
+        {
+            var policySvc = GetService<IPolicyService>();
+            var payload = GetValidPayload();
+            payload.PolicyId = 1;
+            var response = await policySvc.UpdatePolicyAsync(payload);
+
+            Assert.AreEqual(null, response.Data);
+            Assert.AreEqual(UpdatePolicyStatus.PolicyInUse, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }

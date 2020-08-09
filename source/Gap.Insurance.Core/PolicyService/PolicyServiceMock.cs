@@ -13,8 +13,11 @@ namespace Gap.Insurance.Core
     public class PolicyServiceMock<TLoggerCategory>
         : PolicyServiceBase<TLoggerCategory, DbContext>
     {
-        public PolicyServiceMock(ApiServiceArgs<TLoggerCategory> args, IMasterDataService masterDataSvc)
-            : base(args, masterDataSvc) { }
+        public PolicyServiceMock(
+            ApiServiceArgs<TLoggerCategory> args,
+            IMasterDataService masterDataSvc,
+            IClientPolicyService clientPolicySvc)
+            : base(args, masterDataSvc, clientPolicySvc) { }
 
         protected override async Task<bool> ExistsPolicyId(int policyId)
         {
@@ -28,9 +31,9 @@ namespace Gap.Insurance.Core
             return await Task.FromResult(policy);
         }
 
-        protected override async Task<Policy> GetPolicyByName(string name)
+        protected override async Task<Policy> GetPolicyByName(string policyName)
         {
-            var policy = MockData.Policies.FirstOrDefault(p => p.Name == name);
+            var policy = MockData.Policies.FirstOrDefault(p => p.Name == policyName);
             return await Task.FromResult(policy);
         }
 
@@ -55,7 +58,17 @@ namespace Gap.Insurance.Core
                 MockData.Policies.Remove(oldPolicy);
             }
             else if (operation == ApiChangeAction.Delete)
-                MockData.Policies.Remove(entity as Policy);
+            {
+                var policy = entity as Policy;
+                MockData.Policies.Remove(policy);
+
+                var policyCoverages = MockData.PolicyCoverages
+                    .Where(pc => pc.PolicyId == policy.PolicyId)
+                    .ToList();
+
+                for (var i = 0; i < policyCoverages.Count; i++)
+                    MockData.PolicyCoverages.Remove(policyCoverages[i]);
+            }
 
             await Task.FromResult(0);
         }

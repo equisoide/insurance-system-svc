@@ -50,9 +50,9 @@ namespace Gap.Insurance.EntityFramework
 
             modelBuilder.Entity<ClientPolicy>(entity =>
             {
-                entity.HasKey(e => e.ClientPolicy1);
+                entity.HasKey(e => e.ClientPolicyId);
 
-                entity.Property(e => e.ClientPolicy1).HasColumnName("ClientPolicy");
+                entity.Property(e => e.ClientPolicyId).HasColumnName("ClientPolicy");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
@@ -128,7 +128,7 @@ namespace Gap.Insurance.EntityFramework
                 entity.HasOne(d => d.Policy)
                     .WithMany(p => p.PolicyCoverage)
                     .HasForeignKey(d => d.PolicyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_PolicyCoverage_Policy");
             });
 

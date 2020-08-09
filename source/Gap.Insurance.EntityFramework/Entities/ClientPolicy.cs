@@ -4,7 +4,7 @@ namespace Gap.Insurance.EntityFramework
 {
     public partial class ClientPolicy
     {
-        public int ClientPolicy1 { get; set; }
+        public int ClientPolicyId { get; set; }
         public int ClientId { get; set; }
         public int PolicyId { get; set; }
         public int PolicyStatusId { get; set; }

@@ -1,0 +1,14 @@
+﻿[
+  {
+    "PolicyStatusId": 1,
+    "Description": "Active"
+  },
+  {
+    "PolicyStatusId": 2,
+    "Description": "Cancelled"
+  },
+  {
+    "PolicyStatusId": 3,
+    "Description": "Expired"
+  }
+]

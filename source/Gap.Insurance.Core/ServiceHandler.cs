@@ -20,6 +20,7 @@ namespace Gap.Insurance.Core
                 .AddValidators(() =>
                 {
                     services.AddValidator<CancelClientPolicyPayload, CancelClientPolicyValidator>();
+                    services.AddValidator<CheckPolicyUsagePayload, CheckPolicyUsageValidator>();
                     services.AddValidator<CreateClientPolicyPayload, CreateClientPolicyValidator>();
                     services.AddValidator<CreatePolicyCoveragePayload, CreatePolicyCoverageValidator>();
                     services.AddValidator<CreatePolicyPayload, CreatePolicyValidator>();
@@ -36,6 +37,7 @@ namespace Gap.Insurance.Core
                 {
                     services.AddMasterData<TLoggerCategory>(config);
                     services.AddPolicy<TLoggerCategory>(config);
+                    services.AddClientPolicy<TLoggerCategory>(config);
                 });
         }
     }
