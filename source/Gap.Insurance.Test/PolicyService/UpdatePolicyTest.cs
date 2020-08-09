@@ -9,13 +9,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Gap.Insurance.Test
 {
     [TestClass]
-    public class CreatePolicyTest : InsuranceBaseTest
+    public class UpdatePolicyTest : InsuranceBaseTest
     {
-        private CreatePolicyPayload GetValidPayload() =>
-            new CreatePolicyPayload
+        private UpdatePolicyPayload GetValidPayload() =>
+            new UpdatePolicyPayload
             {
+                PolicyId = 1,
                 Description = "All covered 100%, medium risk, 1 year",
-                Name = "All Medium 12 Vip",
+                Name = "All Low Risk 12 Vip",
                 Periods = 12,
                 Price = 750,
                 RiskId = 2
@@ -25,11 +26,25 @@ namespace Gap.Insurance.Test
         public async Task NullPayload()
         {
             var policySvc = GetService<IPolicyService>();
-            var payload = (CreatePolicyPayload)null;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var payload = (UpdatePolicyPayload)null;
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.BadRequest, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.BadRequest, response.StatusCode);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(false, response.Success);
+        }
+
+        [TestMethod]
+        public async Task NegativePolicyId()
+        {
+            var policySvc = GetService<IPolicyService>();
+            var payload = GetValidPayload();
+            payload.PolicyId = -1;
+            var response = await policySvc.UpdatePolicyAsync(payload);
+
+            Assert.AreEqual(null, response.Data);
+            Assert.AreEqual(UpdatePolicyStatus.PolicyIdFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -40,10 +55,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.RiskId = -1;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.RiskIdFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.RiskIdFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -54,10 +69,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Name = null;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.NameFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.NameFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -68,10 +83,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Name = string.Empty;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.NameFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.NameFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -82,10 +97,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Name = new string('x', 51);
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.NameFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.NameFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -96,10 +111,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Description = null;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.DescriptionFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.DescriptionFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -110,10 +125,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Description = string.Empty;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.DescriptionFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.DescriptionFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -124,10 +139,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Description = new string('x', 251);
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.DescriptionFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.DescriptionFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -138,10 +153,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Periods = -1;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.PeriodsFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.PeriodsFormat, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -152,10 +167,24 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.Price = -1;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.PriceFormat, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.PriceFormat, response.StatusCode);
+            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
+            Assert.AreEqual(false, response.Success);
+        }
+
+        [TestMethod]
+        public async Task PolicyIdNotFound()
+        {
+            var policySvc = GetService<IPolicyService>();
+            var payload = GetValidPayload();
+            payload.PolicyId = 11;
+            var response = await policySvc.UpdatePolicyAsync(payload);
+
+            Assert.AreEqual(null, response.Data);
+            Assert.AreEqual(UpdatePolicyStatus.PolicyIdNotFound, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -166,10 +195,10 @@ namespace Gap.Insurance.Test
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
             payload.RiskId = 11;
-            var response = await policySvc.CreatePolicyAsync(payload);
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.RiskIdNotFound, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.RiskIdNotFound, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
@@ -179,34 +208,34 @@ namespace Gap.Insurance.Test
         {
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
-            payload.Name = "All Low 12 Vip";
-            var response = await policySvc.CreatePolicyAsync(payload);
+            payload.Name = "All High 6 40%";
+            var response = await policySvc.UpdatePolicyAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(CreatePolicyStatus.NameAlreadyTaken, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.NameAlreadyTaken, response.StatusCode);
             Assert.AreEqual(ApiMessageType.Error, response.MessageType);
             Assert.AreEqual(false, response.Success);
         }
 
         [TestMethod]
-        public async Task CreatePolicyOk()
+        public async Task UpdatePolicyOk()
         {
             var policySvc = GetService<IPolicyService>();
             var payload = GetValidPayload();
-            var response = await policySvc.CreatePolicyAsync(payload);
-            var expectedMsg = InsuranceResources.Get("CreatePolicyOk");
+            var response = await policySvc.UpdatePolicyAsync(payload);
+            var expectedMsg = InsuranceResources.Get("UpdatePolicyOk");
 
-            Assert.AreNotEqual(0, response.Data.PolicyId);
+            Assert.AreEqual(payload.PolicyId, response.Data.PolicyId);
             Assert.AreEqual(payload.Description, response.Data.Description);
             Assert.AreEqual(payload.Name, response.Data.Name);
             Assert.AreEqual(payload.Periods, response.Data.Periods);
             Assert.AreEqual(payload.Price, response.Data.Price);
             Assert.AreEqual(payload.RiskId, response.Data.RiskId);
             Assert.AreNotEqual(null, response.Data.RiskDescripition);
-            Assert.AreEqual(0, response.Data.Coverages.Count());
+            Assert.AreNotEqual(0, response.Data.Coverages.Count());
             Assert.AreEqual(expectedMsg, response.Message);
             Assert.AreEqual(ApiMessageType.Success, response.MessageType);
-            Assert.AreEqual(CreatePolicyStatus.CreatePolicyOk, response.StatusCode);
+            Assert.AreEqual(UpdatePolicyStatus.UpdatePolicyOk, response.StatusCode);
             Assert.AreEqual(true, response.Success);
         }
     }

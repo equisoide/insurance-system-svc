@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
-using Celerik.NetCore.Util;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Resources;
 using Microsoft.EntityFrameworkCore;
@@ -14,74 +13,46 @@ namespace Gap.Insurance.Core
     public class PolicyServiceMock<TLoggerCategory>
         : PolicyServiceBase<TLoggerCategory, DbContext>
     {
-        private ICollection<Policy> _policies;
-
         public PolicyServiceMock(ApiServiceArgs<TLoggerCategory> args, IMasterDataService masterDataSvc)
-            : base(args, masterDataSvc) => LoadMockedData();
-
-        private void LoadMockedData()
-        {
-            _policies = EmbeddedFileUtility.ReadJson<ICollection<Policy>>(
-                "MockData.Policy.json", typeof(InsuranceResources).Assembly
-            );
-
-            var risks = EmbeddedFileUtility.ReadJson<IEnumerable<Risk>>(
-                "MockData.Risk.json", typeof(InsuranceResources).Assembly
-            );
-
-            var coverages = EmbeddedFileUtility.ReadJson<IEnumerable<Coverage>>(
-                "MockData.Coverage.json", typeof(InsuranceResources).Assembly
-            );
-
-            var policyCoverages = EmbeddedFileUtility.ReadJson<IEnumerable<PolicyCoverage>>(
-                "MockData.PolicyCoverage.json", typeof(InsuranceResources).Assembly
-            );
-
-            foreach (var policy in _policies)
-            {
-                policy.Risk = risks.First(r => r.RiskId == policy.RiskId);
-                policy.PolicyCoverage = policyCoverages.Where(pc => pc.PolicyId == policy.PolicyId).ToList();
-
-                foreach (var policyCoverage in policy.PolicyCoverage)
-                    policyCoverage.Coverage = coverages.First(c => c.CoverageId == policyCoverage.CoverageId);
-            }
-        }
+            : base(args, masterDataSvc) { }
 
         protected override async Task<bool> ExistsPolicyId(int policyId)
         {
-            var policy = _policies.FirstOrDefault(p => p.PolicyId == policyId);
+            var policy = MockData.Policies.FirstOrDefault(p => p.PolicyId == policyId);
             return await Task.FromResult(policy != null);
         }
 
         protected override async Task<Policy> GetPolicyById(int policyId)
         {
-            var policy = _policies.FirstOrDefault(p => p.PolicyId == policyId);
+            var policy = MockData.Policies.FirstOrDefault(p => p.PolicyId == policyId);
             return await Task.FromResult(policy);
         }
 
         protected override async Task<Policy> GetPolicyByName(string name)
         {
-            var policy = _policies.FirstOrDefault(p => p.Name == name);
+            var policy = MockData.Policies.FirstOrDefault(p => p.Name == name);
             return await Task.FromResult(policy);
         }
 
         protected override async Task<IEnumerable<Policy>> GetPolicies()
-            => await Task.FromResult(_policies);
+            => await Task.FromResult(MockData.Policies);
 
         protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
         {
             if (operation == ApiChangeAction.Insert)
             {
                 var policy = entity as Policy;
-                policy.PolicyId = _policies.Max(p => p.PolicyId) + 1;
-                _policies.Add(policy);
+                policy.PolicyId = MockData.Policies.Max(p => p.PolicyId) + 1;
+                MockData.AddRelatedData(policy);
+                MockData.Policies.Add(policy);
             }
             else if (operation == ApiChangeAction.Update)
             {
                 var newPolicy = entity as Policy;
-                var oldPolicy = _policies.First(p => p.PolicyId == newPolicy.PolicyId);
-                _policies.Remove(oldPolicy);
-                _policies.Add(newPolicy);
+                var oldPolicy = MockData.Policies.First(p => p.PolicyId == newPolicy.PolicyId);
+                MockData.AddRelatedData(newPolicy);
+                MockData.Policies.Add(newPolicy);
+                MockData.Policies.Remove(oldPolicy);
             }
 
             await Task.FromResult(0);

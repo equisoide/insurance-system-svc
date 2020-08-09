@@ -35,4 +35,8 @@
     <PackageReference Include="Celerik.NetCore.Util" Version="2.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gap.Insurance.EntityFramework\Gap.Insurance.EntityFramework.csproj" />
+  </ItemGroup>
+
 </Project>

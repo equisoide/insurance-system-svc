@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
-using Celerik.NetCore.Util;
 using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
 using Gap.Insurance.Resources;
@@ -13,39 +12,25 @@ namespace Gap.Insurance.Core
     public class MasterDataServiceMock<TLoggerCategory>
         : MasterDataServiceBase<TLoggerCategory, DbContext>
     {
-        private IEnumerable<Risk> _risks;
-        private IEnumerable<Coverage> _coverages;
-
         public MasterDataServiceMock(ApiServiceArgs<TLoggerCategory> args)
-            : base(args) => LoadMockedData();
-
-        private void LoadMockedData()
-        {
-            _risks = EmbeddedFileUtility.ReadJson<IEnumerable<Risk>>(
-                "MockData.Risk.json", typeof(InsuranceResources).Assembly
-            );
-
-            _coverages = EmbeddedFileUtility.ReadJson<IEnumerable<Coverage>>(
-                "MockData.Coverage.json", typeof(InsuranceResources).Assembly
-            );
-        }
+            : base(args) { }
 
         public override async Task<Risk> GetRisk(GetRiskPayload payload)
         {
-            var risk = _risks.FirstOrDefault(r => r.RiskId == payload.RiskId);
+            var risk = MockData.Risks.FirstOrDefault(r => r.RiskId == payload.RiskId);
             return await Task.FromResult(risk);
         }
 
         protected override async Task<IEnumerable<Risk>> GetRisks()
-            => await Task.FromResult(_risks);
+            => await Task.FromResult(MockData.Risks);
 
         public override async Task<Coverage> GetCoverage(GetCoveragePayload payload)
         {
-            var coverage = _coverages.FirstOrDefault(c => c.CoverageId == payload.CoverageId);
+            var coverage = MockData.Coverages.FirstOrDefault(c => c.CoverageId == payload.CoverageId);
             return await Task.FromResult(coverage);
         }
 
         protected override async Task<IEnumerable<Coverage>> GetCoverages()
-            => await Task.FromResult(_coverages);
+            => await Task.FromResult(MockData.Coverages);
     }
 }
