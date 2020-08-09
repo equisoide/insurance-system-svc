@@ -4,8 +4,7 @@
     {
         BadRequest = 400,
         ClientIdFormat = 461,
-        ClientIdNotFound = 484,
-        NoPoliciesFound = 485,
+        NoPoliciesFound = 484,
         Ok = 200
     }
 }
