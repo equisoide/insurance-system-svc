@@ -1,9 +1,10 @@
-﻿using Celerik.NetCore.Web;
+﻿using Celerik.NetCore.Services;
 using Gap.Insurance.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Gap.Insurance.RestApi
 {
@@ -14,15 +15,27 @@ namespace Gap.Insurance.RestApi
         public Startup(IConfiguration config)
             => _config = config;
 
-        private string ApiName => _config["ApiName"];
-
-        public void ConfigureServices(IServiceCollection services) =>
-            MicroserviceStartup.ConfigureServices(services, _config, ApiName, () =>
-            {
-                services.AddCoreServices<IPolicyService>(_config);
-            });
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddHttpContextAccessor();
+            services.AddCoreServices<IPolicyService>(_config);
+            services.AddFirebaseAuthentication(_config);
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddSwaggerUI(_config);
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-            => MicroserviceStartup.Configure(app, env, _config, ApiName);
+        {
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseSwaggerUI(_config);
+            app.UseLocalization();
+        }
     }
 }

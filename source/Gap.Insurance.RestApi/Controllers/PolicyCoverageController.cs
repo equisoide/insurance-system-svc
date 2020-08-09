@@ -2,6 +2,7 @@
 using Celerik.NetCore.Services;
 using Gap.Insurance.Core;
 using Gap.Insurance.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace Gap.Insurance.RestApi
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class PolicyCoverageController : ControllerBase
     {
         private readonly IPolicyCoverageService _policyCoverageSvc;
