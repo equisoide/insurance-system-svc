@@ -18,11 +18,13 @@ namespace Gap.Insurance.Core
 
         protected override Task<IEnumerable<Client>> SearchClient(string keyword)
         {
+            keyword = keyword.ToLower();
+
             var clients = MockData.Clients
-                .Where(c => c.Document.Contains(keyword)
-                    || c.Name.Contains(keyword)
-                    || c.Email.Contains(keyword)
-                    || c.CellPhone.Contains(keyword));
+                .Where(c => c.Document.ToLower().Contains(keyword)
+                    || c.Name.ToLower().Contains(keyword)
+                    || c.Email.ToLower().Contains(keyword)
+                    || c.CellPhone.ToLower().Contains(keyword));
 
             return Task.FromResult(clients);
         }
