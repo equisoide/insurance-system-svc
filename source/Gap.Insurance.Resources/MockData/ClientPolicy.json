@@ -12,12 +12,5 @@
     "PolicyId": 1,
     "PolicyStatusId": 1,
     "StartDate": "2020-01-01 00:00:00.000"
-  },
-  {
-    "ClientPolicyId": 3,
-    "ClientId": 2,
-    "PolicyId": 4,
-    "PolicyStatusId": 1,
-    "StartDate": "2020-06-01 00:00:00.000"
   }
 ]

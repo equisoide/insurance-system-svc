@@ -15,8 +15,9 @@ namespace Gap.Insurance.Core
         public PolicyCoverageServiceMock(
             ApiServiceArgs<TLoggerCategory> args,
             IMasterDataService masterDataSvc,
-            IPolicyService policyService)
-            : base(args, masterDataSvc, policyService) { }
+            IPolicyService policyService,
+            IClientPolicyService clientPolicySvc)
+            : base(args, masterDataSvc, policyService, clientPolicySvc) { }
 
         protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
         {

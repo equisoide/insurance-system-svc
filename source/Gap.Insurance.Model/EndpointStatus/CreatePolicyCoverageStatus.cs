@@ -10,6 +10,7 @@
         CoverageIdNotFound = 485,
         CoverageAlreadyAdded = 486,
         MaxCoverageExceeded = 487,
+        PolicyInUse = 488,
         CreatePolicyCoverageOk = 200
     }
 }

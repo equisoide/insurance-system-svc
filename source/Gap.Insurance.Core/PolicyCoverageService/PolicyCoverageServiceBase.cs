@@ -16,26 +16,31 @@ namespace Gap.Insurance.Core
     {
         private readonly IMasterDataService _masterDataSvc;
         private readonly IPolicyService _policyService;
+        private readonly IClientPolicyService _clientPolicySvc;
 
         public PolicyCoverageServiceBase(
             ApiServiceArgs<TLoggerCategory> args,
             IMasterDataService masterDataSvc,
-            IPolicyService policyService)
+            IPolicyService policyService,
+            IClientPolicyService clientPolicySvc)
             : base(args)
         {
             _masterDataSvc = masterDataSvc;
             _policyService = policyService;
+            _clientPolicySvc = clientPolicySvc;
         }
 
         [ExcludeFromCodeCoverage]
         public PolicyCoverageServiceBase(
             ApiServiceArgsEF<TLoggerCategory, TDbContext> args,
             IMasterDataService masterDataSvc,
-            IPolicyService policyService)
+            IPolicyService policyService,
+            IClientPolicyService clientPolicySvc)
             : base(args)
         {
             _masterDataSvc = masterDataSvc;
             _policyService = policyService;
+            _clientPolicySvc = clientPolicySvc;
         }
 
         public async Task<ApiResponse<PolicyCoverageDto, CreatePolicyCoverageStatus>> CreatePolicyCoverageAsync(CreatePolicyCoveragePayload payload)
@@ -56,6 +61,16 @@ namespace Gap.Insurance.Core
             if (policy.Data == null)
             {
                 response = Error(CreatePolicyCoverageStatus.PolicyIdNotFound);
+                EndLog();
+                return response;
+            }
+
+            var usage = await _clientPolicySvc.CheckPolicyUsageAsync(
+                new CheckPolicyUsagePayload { PolicyId = payload.PolicyId });
+
+            if (usage.Data.IsInUse)
+            {
+                response = Error(CreatePolicyCoverageStatus.PolicyInUse);
                 EndLog();
                 return response;
             }

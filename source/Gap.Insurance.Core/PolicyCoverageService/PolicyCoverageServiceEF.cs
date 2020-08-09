@@ -11,7 +11,8 @@ namespace Gap.Insurance.Core
         public PolicyCoverageServiceEF(
             ApiServiceArgsEF<TLoggerCategory, InsuranceDbContext> args,
             IMasterDataService masterDataSvc,
-            IPolicyService policyService)
-            : base(args, masterDataSvc, policyService) { }
+            IPolicyService policyService,
+            IClientPolicyService clientPolicySvc)
+            : base(args, masterDataSvc, policyService, clientPolicySvc) { }
     }
 }
