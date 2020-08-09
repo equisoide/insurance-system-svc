@@ -91,7 +91,7 @@ namespace Gap.Insurance.Core
 
             var risk = await _masterDataSvc.GetRiskAsync(new GetRiskPayload { RiskId = payload.RiskId });
 
-            if (risk.StatusCode != GetRiskStatus.Ok)
+            if (risk.Data == null)
             {
                 response = Error(CreatePolicyStatus.RiskIdNotFound);
                 EndLog();
@@ -148,7 +148,7 @@ namespace Gap.Insurance.Core
             var risk = await _masterDataSvc.GetRiskAsync(
                 new GetRiskPayload { RiskId = payload.RiskId });
 
-            if (risk.StatusCode != GetRiskStatus.Ok)
+            if (risk.Data == null)
             {
                 response = Error(UpdatePolicyStatus.RiskIdNotFound);
                 EndLog();

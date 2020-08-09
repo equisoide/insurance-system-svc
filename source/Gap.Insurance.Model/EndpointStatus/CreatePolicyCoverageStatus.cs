@@ -8,6 +8,8 @@
         PercentageFormat = 463,
         PolicyIdNotFound = 484,
         CoverageIdNotFound = 485,
+        CoverageAlreadyAdded = 486,
+        MaxCoverageExceeded = 487,
         CreatePolicyCoverageOk = 200
     }
 }

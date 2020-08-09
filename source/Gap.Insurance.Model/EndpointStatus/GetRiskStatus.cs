@@ -4,7 +4,6 @@
     {
         BadRequest = 400,
         RiskIdFormat = 461,
-        RiskIdNotFound = 484,
         Ok = 200
     }
 }

@@ -32,16 +32,13 @@ namespace Gap.Insurance.Core
             else
             {
                 var risk = await GetRiskById(payload.RiskId);
+                response = new ApiResponse<RiskDto, GetRiskStatus>
+                {
+                    Data = Mapper.Map<RiskDto>(risk),
+                    StatusCode = GetRiskStatus.Ok,
+                    Success = true
+                };
 
-                if (risk == null)
-                    response = Error(GetRiskStatus.RiskIdNotFound);
-                else
-                    response = new ApiResponse<RiskDto, GetRiskStatus>
-                    {
-                        Data = Mapper.Map<RiskDto>(risk),
-                        StatusCode = GetRiskStatus.Ok,
-                        Success = true
-                    };
             }
 
             EndLog();
@@ -74,16 +71,12 @@ namespace Gap.Insurance.Core
             else
             {
                 var coverage = await GetCoverageById(payload.CoverageId);
-
-                if (coverage == null)
-                    response = Error(GetCoverageStatus.CoverageIdNotFound);
-                else
-                    response = new ApiResponse<CoverageDto, GetCoverageStatus>
-                    {
-                        Data = Mapper.Map<CoverageDto>(coverage),
-                        StatusCode = GetCoverageStatus.Ok,
-                        Success = true
-                    };
+                response = new ApiResponse<CoverageDto, GetCoverageStatus>
+                {
+                    Data = Mapper.Map<CoverageDto>(coverage),
+                    StatusCode = GetCoverageStatus.Ok,
+                    Success = true
+                };
             }
 
             EndLog();

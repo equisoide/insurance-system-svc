@@ -46,10 +46,10 @@ namespace Gap.Insurance.Test
             var response = await masterDataSvc.GetRiskAsync(payload);
 
             Assert.AreEqual(null, response.Data);
-            Assert.AreEqual(false, response.Success);
-            Assert.AreNotEqual(null, response.Message);
-            Assert.AreEqual(ApiMessageType.Error, response.MessageType);
-            Assert.AreEqual(GetRiskStatus.RiskIdNotFound, response.StatusCode);
+            Assert.AreEqual(true, response.Success);
+            Assert.AreEqual(null, response.Message);
+            Assert.AreEqual(null, response.MessageType);
+            Assert.AreEqual(GetRiskStatus.Ok, response.StatusCode);
         }
 
         [TestMethod]

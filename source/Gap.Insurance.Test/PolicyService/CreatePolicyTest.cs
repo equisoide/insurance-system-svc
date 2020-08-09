@@ -215,6 +215,7 @@ namespace Gap.Insurance.Test
             Assert.AreEqual(payload.Price, response.Data.Price);
             Assert.AreEqual(payload.RiskId, response.Data.RiskId);
             Assert.AreNotEqual(null, response.Data.RiskDescripition);
+            Assert.AreNotEqual(0, response.Data.MaxCoverage);
             Assert.AreEqual(0, response.Data.Coverages.Count());
             Assert.AreEqual(expectedMsg, response.Message);
             Assert.AreEqual(ApiMessageType.Success, response.MessageType);
