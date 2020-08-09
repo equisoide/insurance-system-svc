@@ -38,6 +38,10 @@ namespace Gap.Insurance.Core
                 MockData.AddRelatedData(policyCoverage);
                 MockData.PolicyCoverages.Add(policyCoverage);
             }
+            else if (operation == ApiChangeAction.Delete)
+            {
+                MockData.PolicyCoverages.Remove(entity as PolicyCoverage);
+            }
 
             await Task.FromResult(0);
         }

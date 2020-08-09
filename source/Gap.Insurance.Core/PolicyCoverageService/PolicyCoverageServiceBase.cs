@@ -173,9 +173,43 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<PolicyCoverageDto, DeletePolicyCoverageStatus>> DeletePolicyCoverageAsync(DeletePolicyCoveragePayload payload)
+        public async Task<ApiResponse<PolicyCoverageDto, DeletePolicyCoverageStatus>> DeletePolicyCoverageAsync(DeletePolicyCoveragePayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<PolicyCoverageDto, DeletePolicyCoverageStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+            {
+                response = Error<DeletePolicyCoverageStatus>(message, property);
+                EndLog();
+                return response;
+            }
+
+            var policyCoverage = await GetPolicyCoverageById(payload.PolicyCoverageId);
+
+            if (policyCoverage == null)
+            {
+                response = Error(DeletePolicyCoverageStatus.PolicyCoverageIdNotFound);
+                EndLog();
+                return response;
+            }
+
+            var usage = await _clientPolicySvc.CheckPolicyUsageAsync(
+                new CheckPolicyUsagePayload { PolicyId = policyCoverage.PolicyId });
+
+            if (usage.Data.IsInUse)
+            {
+                response = Error(DeletePolicyCoverageStatus.PolicyInUse);
+                EndLog();
+                return response;
+            }
+
+            await SaveAsync(ApiChangeAction.Delete, policyCoverage);
+
+            response = Ok<PolicyCoverageDto, DeletePolicyCoverageStatus>(policyCoverage, DeletePolicyCoverageStatus.DeletePolicyCoverageOk);
+            EndLog();
+
+            return response;
         }
 
         protected abstract Task<PolicyCoverage> GetPolicyCoverageById(int policyCoverageId);
