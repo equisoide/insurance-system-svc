@@ -1,7 +1,11 @@
 ﻿{
   "ArgumentCanNotBeNull": "Arguments can not be null",
+  "CancelClientPolicyOk": "The client policy was successfully canceled!",
   "ClientIdNotFound": "The provided 'Client Id' was not found",
+  "ClientPolicyAlreadyCancelled": "This client policy is already cancelled",
+  "ClientPolicyIdNotFound": "The provided 'Client Policy Id' was not found",
   "CoverageIdNotFound": "The provided 'Coverage Id' was not found",
+  "CreateClientPolicyOk": "The client policy was successfully created!",
   "CreatePolicyOk": "The new policy was successfully created!",
   "DeletePolicyOk": "The policy was successfully deleted!",
   "NameAlreadyTaken": "The provided 'Name' already exists",

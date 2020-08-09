@@ -56,7 +56,9 @@ namespace Gap.Insurance.Core
             if (operation == ApiChangeAction.Insert)
             {
                 var clientPolicy = entity as ClientPolicy;
-                clientPolicy.ClientPolicyId = MockData.ClientPolicies.Max(p => p.ClientPolicyId) + 1;
+                clientPolicy.ClientPolicyId = MockData.ClientPolicies
+                    .Max(p => p.ClientPolicyId) + 1;
+
                 MockData.AddRelatedData(clientPolicy);
                 MockData.ClientPolicies.Add(clientPolicy);
             }

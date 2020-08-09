@@ -123,9 +123,42 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(CancelClientPolicyPayload payload)
+        public async Task<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>> CancelClientPolicyAsync(CancelClientPolicyPayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<ClientPolicyDto, CancelClientPolicyStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+            {
+                response = Error<CancelClientPolicyStatus>(message, property);
+                EndLog();
+                return response;
+            }
+
+            var clientPolicy = await GetClientPolicyById(payload.ClientPolicyId);
+
+            if (clientPolicy == null)
+            {
+                response = Error(CancelClientPolicyStatus.ClientPolicyIdNotFound);
+                EndLog();
+                return response;
+            }
+
+            if (clientPolicy.PolicyStatusId == Constants.ExpiredPolicyStatusId)
+            {
+                response = Error(CancelClientPolicyStatus.ClientPolicyAlreadyCancelled);
+                EndLog();
+                return response;
+            }
+
+            clientPolicy.PolicyStatusId = Constants.ExpiredPolicyStatusId;
+            await SaveAsync(ApiChangeAction.Update, clientPolicy);
+            clientPolicy = await GetClientPolicyById(payload.ClientPolicyId);
+
+            response = Ok<ClientPolicyDto, CancelClientPolicyStatus>(clientPolicy, CancelClientPolicyStatus.CancelClientPolicyOk);
+            EndLog();
+
+            return response;
         }
 
         protected abstract Task<bool> CheckPolicyIdUsage(int policyId);

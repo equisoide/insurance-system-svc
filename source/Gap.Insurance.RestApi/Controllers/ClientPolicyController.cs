@@ -28,5 +28,11 @@ namespace Gap.Insurance.RestApi
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>>> CreateClientPolicy([FromBody]CreateClientPolicyPayload payload)
             => Ok(await _clientPolicySvc.CreateClientPolicyAsync(payload));
+
+        [HttpDelete]
+        [Route("CancelClientPolicy")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ApiResponse<ClientPolicyDto, CancelClientPolicyStatus>>> CancelClientPolicy([FromQuery]CancelClientPolicyPayload payload)
+            => Ok(await _clientPolicySvc.CancelClientPolicyAsync(payload));
     }
 }
