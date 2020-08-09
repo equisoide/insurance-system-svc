@@ -3,6 +3,7 @@
   "CreatePolicyOk": "The new policy was successfully created!",
   "DeletePolicyOk": "The policy was successfully deleted!",
   "NameAlreadyTaken": "The provided 'Name' already exists",
+  "NoPoliciesFound": "No policies found",
   "NoSearchResults": "No search results",
   "PolicyIdNotFound": "The provided 'Policy Id' was not found",
   "PolicyInUse": "This policy is in use by one or more clients and can not be modified/deleted",

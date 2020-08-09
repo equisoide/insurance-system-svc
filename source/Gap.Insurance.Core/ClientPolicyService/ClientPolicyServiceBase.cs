@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
+using Gap.Insurance.EntityFramework;
 using Gap.Insurance.Model;
 using Gap.Insurance.Resources;
 using Microsoft.EntityFrameworkCore;
@@ -50,9 +52,25 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>> GetClientPoliciesAsync(GetClientPoliciesPayload payload)
+        public async Task<ApiResponse<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>> GetClientPoliciesAsync(GetClientPoliciesPayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+                response = Error<GetClientPoliciesStatus>(message, property);
+            else
+            {
+                var policies = await GetClientPolicies(payload.ClientId);
+
+                if (!policies.Any())
+                    response = Error(GetClientPoliciesStatus.NoPoliciesFound);
+                else
+                    response = Ok<IEnumerable<ClientPolicyDto>, GetClientPoliciesStatus>(policies, GetClientPoliciesStatus.Ok);
+            }
+
+            EndLog();
+            return response;
         }
 
         public Task<ApiResponse<ClientPolicyDto, CreateClientPolicyStatus>> CreateClientPolicyAsync(CreatePolicyPayload payload)
@@ -66,5 +84,6 @@ namespace Gap.Insurance.Core
         }
 
         protected abstract Task<bool> CheckPolicyUsage(int policyId);
+        protected abstract Task<IEnumerable<ClientPolicy>> GetClientPolicies(int clientId);
     }
 }

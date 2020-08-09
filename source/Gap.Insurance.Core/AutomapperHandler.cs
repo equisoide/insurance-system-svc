@@ -32,6 +32,14 @@ namespace Gap.Insurance.Core
                         CoverageDescription = pc.Coverage.Description,
                         Percentage = pc.Percentage
                     })));
+
+            config.CreateMap<ClientPolicy, ClientPolicyDto>()
+                .ForMember(
+                    des => des.PolicyName,
+                    opt => opt.MapFrom(src => src.Policy.Name))
+                .ForMember(
+                    des => des.PolicyStatusDescription,
+                    opt => opt.MapFrom(src => src.PolicyStatus.Description));
         }
     }
 }

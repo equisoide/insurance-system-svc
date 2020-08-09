@@ -52,7 +52,7 @@ namespace Gap.Insurance.EntityFramework
             {
                 entity.HasKey(e => e.ClientPolicyId);
 
-                entity.Property(e => e.ClientPolicyId).HasColumnName("ClientPolicy");
+                entity.Property(e => e.ClientPolicyId).HasColumnName("ClientPolicyId");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
