@@ -52,4 +52,10 @@ jobs:
     - name: Publish image
       working-directory: ./
       run: docker push docker.pkg.github.com/equisoide/insurance-system-svc/insuranceapi:latest
+      
+    - name: Deploy image to azure site via webhooks
+      uses: joelwmale/webhook-action@master
+      env:
+        WEBHOOK_URL: ${{ secrets.AZURE_DEPLOY_WEBHOOK_DEV_URL }}
+        data: "Deploying from github actions!"
 
