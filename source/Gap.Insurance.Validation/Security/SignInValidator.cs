@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Gap.Insurance.Model;
 
-namespace Gap.Insurance.Validators
+namespace Gap.Insurance.Validation
 {
     public class SignInValidator : AbstractValidator<SignInPayload>
     {

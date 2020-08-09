@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using Gap.Insurance.Model;
 
-namespace Gap.Insurance.Validators
+namespace Gap.Insurance.Validation
 {
-    public class GetPolicyValidator : AbstractValidator<GetPolicyPayload>
+    public class CheckPolicyUsageValidator : AbstractValidator<CheckPolicyUsagePayload>
     {
-        public GetPolicyValidator()
+        public CheckPolicyUsageValidator()
         {
             RuleFor(payload => payload.PolicyId)
                 .GreaterThan(0);

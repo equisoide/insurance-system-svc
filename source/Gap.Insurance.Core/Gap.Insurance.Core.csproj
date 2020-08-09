@@ -27,7 +27,7 @@
     <ProjectReference Include="..\Gap.Insurance.EntityFramework\Gap.Insurance.EntityFramework.csproj" />
     <ProjectReference Include="..\Gap.Insurance.Model\Gap.Insurance.Model.csproj" />
     <ProjectReference Include="..\Gap.Insurance.Resources\Gap.Insurance.Resources.csproj" />
-    <ProjectReference Include="..\Gap.Insurance.Validators\Gap.Insurance.Validators.csproj" />
+    <ProjectReference Include="..\Gap.Insurance.Validation\Gap.Insurance.Validation.csproj" />
   </ItemGroup>
 
 </Project>
