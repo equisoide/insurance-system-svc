@@ -54,6 +54,8 @@ namespace Gap.Insurance.Core
                 MockData.Policies.Add(newPolicy);
                 MockData.Policies.Remove(oldPolicy);
             }
+            else if (operation == ApiChangeAction.Delete)
+                MockData.Policies.Remove(entity as Policy);
 
             await Task.FromResult(0);
         }

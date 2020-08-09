@@ -107,9 +107,28 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<PolicyDto, DeletePolicyStatus>> DeletePolicyAsync(DeletePolicyPayload payload)
+        public async Task<ApiResponse<PolicyDto, DeletePolicyStatus>> DeletePolicyAsync(DeletePolicyPayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<PolicyDto, DeletePolicyStatus> response;
+
+            if (!Validate(payload, out string message, out string property))
+                response = Error<DeletePolicyStatus>(message, property);
+            else
+            {
+                var policy = await GetPolicyById(payload.PolicyId);
+
+                if (policy == null)
+                    response = Error(DeletePolicyStatus.PolicyIdNotFound);
+                else
+                {
+                    await SaveAsync(ApiChangeAction.Delete, policy);
+                    response = Ok<PolicyDto, DeletePolicyStatus>(policy, DeletePolicyStatus.DeletePolicyOk);
+                }
+            }
+
+            EndLog();
+            return response;
         }
 
         protected abstract Task<bool> ExistsPolicyId(int policyId);

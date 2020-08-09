@@ -1,6 +1,7 @@
 ﻿{
   "CoverageIdNotFound": "The provided 'Coverage Id' was not found",
   "CreatePolicyOk": "The new policy was successfully created!",
+  "DeletePolicyOk": "The policy was successfully deleted!",
   "NameAlreadyTaken": "The provided 'Name' already exists",
   "PolicyIdNotFound": "The provided 'Policy Id' was not found",
   "RiskIdNotFound": "The provided 'Risk Id' was not found",
