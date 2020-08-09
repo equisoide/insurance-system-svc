@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
@@ -9,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
-    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "The payload is validated in the call to Validate(payload)")]
     public class ClientServiceMock<TLoggerCategory>
         : ClientServiceBase<TLoggerCategory, DbContext>
     {

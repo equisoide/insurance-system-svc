@@ -11,12 +11,16 @@
   "CreatePolicyOk": "The new policy was successfully created!",
   "DeletePolicyCoverageOk": "The policy coverage was successfully deleted!",
   "DeletePolicyOk": "The policy was successfully deleted!",
+  "EmailNotFound": "The email was not found",
+  "EmailUnverified": "The email has not been verified",
   "MaxCoverageExceeded": "The 'Percentage' can not be greater than {0}%",
   "NameAlreadyTaken": "The provided 'Name' already exists",
+  "PasswordInvalid": "The password is invalid",
   "PolicyCoverageIdNotFound": "The provided 'Policy Coverage Id' was not found",
   "PolicyIdNotFound": "The provided 'Policy Id' was not found",
   "PolicyInUse": "This policy is in use by one or more clients and can not be modified/deleted",
   "RiskIdNotFound": "The provided 'Risk Id' was not found",
   "UpdatePolicyCoverageOk": "The policy coverage was successfully updated!",
-  "UpdatePolicyOk": "The policy was successfully updated!"
+  "UpdatePolicyOk": "The policy was successfully updated!",
+  "UserDisabled": "The user is disabled"
 }

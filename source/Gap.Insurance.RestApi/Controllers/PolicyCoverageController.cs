@@ -13,8 +13,8 @@ namespace Gap.Insurance.RestApi
     {
         private readonly IPolicyCoverageService _policyCoverageSvc;
 
-        public PolicyCoverageController(IPolicyCoverageService PolicyCoverageSvc)
-            => _policyCoverageSvc = PolicyCoverageSvc;
+        public PolicyCoverageController(IPolicyCoverageService policyCoverageSvc)
+            => _policyCoverageSvc = policyCoverageSvc;
 
         [HttpPost]
         [Route("CreatePolicyCoverage")]

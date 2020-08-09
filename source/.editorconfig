@@ -158,6 +158,9 @@ dotnet_diagnostic.CA1307.severity = none
 # CA1304: Specify CultureInfo
 dotnet_diagnostic.CA1304.severity = none
 
+# CA1062: Validate arguments of public methods
+dotnet_diagnostic.CA1062.severity = none
+
 [*.vb]
 # Modifier preferences
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion

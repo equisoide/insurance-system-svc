@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
@@ -8,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
 {
-    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "The payload is validated in the call to Validate(payload)")]
     public class PolicyCoverageServiceMock<TLoggerCategory>
         : PolicyCoverageServiceBase<TLoggerCategory, DbContext>
     {
