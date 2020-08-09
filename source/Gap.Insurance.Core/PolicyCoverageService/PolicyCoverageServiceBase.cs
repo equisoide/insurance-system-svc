@@ -117,14 +117,67 @@ namespace Gap.Insurance.Core
             return response;
         }
 
-        public Task<ApiResponse<PolicyCoverageDto, UpdatePolicyCoverageStatus>> UpdatePolicyCoverageAsync(UpdatePolicyCoveragePayload payload)
+        public async Task<ApiResponse<PolicyCoverageDto, UpdatePolicyCoverageStatus>> UpdatePolicyCoverageAsync(UpdatePolicyCoveragePayload payload)
         {
-            throw new System.NotImplementedException();
+            StartLog();
+            ApiResponse<PolicyCoverageDto, UpdatePolicyCoverageStatus> response = null;
+
+            if (!Validate(payload, out string message, out string property))
+            {
+                response = Error<UpdatePolicyCoverageStatus>(message, property);
+                EndLog();
+                return response;
+            }
+
+            var policyCoverage = await GetPolicyCoverageById(payload.PolicyCoverageId);
+
+            if (policyCoverage == null)
+            {
+                response = Error(UpdatePolicyCoverageStatus.PolicyCoverageIdNotFound);
+                EndLog();
+                return response;
+            }
+
+            var usage = await _clientPolicySvc.CheckPolicyUsageAsync(
+                new CheckPolicyUsagePayload { PolicyId = policyCoverage.PolicyId });
+
+            if (usage.Data.IsInUse)
+            {
+                response = Error(UpdatePolicyCoverageStatus.PolicyInUse);
+                EndLog();
+                return response;
+            }
+
+            var policy = await _policyService.GetPolicyAsync(
+                new GetPolicyPayload { PolicyId = policyCoverage.PolicyId });
+
+            if (payload.Percentage > policy.Data.MaxCoverage)
+            {
+                response = new ApiResponse<PolicyCoverageDto, UpdatePolicyCoverageStatus>
+                {
+                    Message = InsuranceResources.Get("MaxCoverageExceeded", policy.Data.MaxCoverage),
+                    MessageType = ApiMessageType.Error,
+                    StatusCode = UpdatePolicyCoverageStatus.MaxCoverageExceeded
+                };
+
+                EndLog();
+                return response;
+            }
+
+            policyCoverage.Percentage = payload.Percentage;
+            await SaveAsync(ApiChangeAction.Update, policyCoverage);
+
+            response = Ok<PolicyCoverageDto, UpdatePolicyCoverageStatus>(policyCoverage, UpdatePolicyCoverageStatus.UpdatePolicyCoverageOk);
+            EndLog();
+
+            return response;
         }
 
         public Task<ApiResponse<PolicyCoverageDto, DeletePolicyCoverageStatus>> DeletePolicyCoverageAsync(DeletePolicyCoveragePayload payload)
         {
             throw new System.NotImplementedException();
-        } 
+        }
+
+        protected abstract Task<PolicyCoverage> GetPolicyCoverageById(int policyCoverageId);
     }
 }

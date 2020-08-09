@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Celerik.NetCore.Services;
 using Gap.Insurance.EntityFramework;
 
@@ -14,5 +15,8 @@ namespace Gap.Insurance.Core
             IPolicyService policyService,
             IClientPolicyService clientPolicySvc)
             : base(args, masterDataSvc, policyService, clientPolicySvc) { }
+
+        protected override async Task<PolicyCoverage> GetPolicyCoverageById(int policyCoverageId)
+            => await DbContext.PolicyCoverage.FindAsync(policyCoverageId);
     }
 }

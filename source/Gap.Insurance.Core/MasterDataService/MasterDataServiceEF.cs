@@ -15,13 +15,13 @@ namespace Gap.Insurance.Core
             : base(args) { }
 
         public override async Task<Risk> GetRiskById(int riskId)
-            => await DbContext.Risk.FirstOrDefaultAsync(r => r.RiskId == riskId);
+            => await DbContext.Risk.FindAsync(riskId);
 
         protected override async Task<IEnumerable<Risk>> GetRisks()
             => await DbContext.Risk.ToListAsync();
 
         public override async Task<Coverage> GetCoverageById(int coverageId)
-            => await DbContext.Coverage.FirstOrDefaultAsync(c => c.CoverageId == coverageId);
+            => await DbContext.Coverage.FindAsync(coverageId);
 
         protected override async Task<IEnumerable<Coverage>> GetCoverages()
             => await DbContext.Coverage.ToListAsync();

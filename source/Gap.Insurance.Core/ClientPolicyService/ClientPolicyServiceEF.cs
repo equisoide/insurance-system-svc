@@ -26,10 +26,9 @@ namespace Gap.Insurance.Core
 
         protected override async Task<ClientPolicy> GetClientPolicyById(int clientPolicyId)
             => await DbContext.ClientPolicy
-                    .Where(cp => cp.ClientPolicyId == clientPolicyId)
                     .Include(cp => cp.Policy)
                     .Include(cp => cp.PolicyStatus)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(cp => cp.ClientPolicyId == clientPolicyId);
 
         protected override async Task<IEnumerable<ClientPolicy>> GetClientPoliciesByClientId(int clientId)
             => await DbContext.ClientPolicy

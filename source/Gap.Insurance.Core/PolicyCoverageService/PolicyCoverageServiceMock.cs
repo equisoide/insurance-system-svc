@@ -19,6 +19,14 @@ namespace Gap.Insurance.Core
             IClientPolicyService clientPolicySvc)
             : base(args, masterDataSvc, policyService, clientPolicySvc) { }
 
+        protected override async Task<PolicyCoverage> GetPolicyCoverageById(int policyCoverageId)
+        {
+            var policyCoverage = MockData.PolicyCoverages
+                .FirstOrDefault(pc => pc.PolicyCoverageId == policyCoverageId);
+
+            return await Task.FromResult(policyCoverage);
+        }
+
         protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
         {
             if (operation == ApiChangeAction.Insert)

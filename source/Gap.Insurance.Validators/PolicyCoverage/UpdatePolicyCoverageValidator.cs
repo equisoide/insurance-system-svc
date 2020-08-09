@@ -9,6 +9,10 @@ namespace Gap.Insurance.Validators
         {
             RuleFor(payload => payload.PolicyCoverageId)
                 .GreaterThan(0);
+
+            RuleFor(payload => payload.Percentage)
+                .GreaterThan(0)
+                .LessThanOrEqualTo(100);
         }
     }
 }
