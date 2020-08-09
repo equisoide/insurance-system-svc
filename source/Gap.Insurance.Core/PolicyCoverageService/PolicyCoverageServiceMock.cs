@@ -1,5 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
 using Celerik.NetCore.Services;
+using Gap.Insurance.EntityFramework;
+using Gap.Insurance.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.Core
@@ -13,5 +17,20 @@ namespace Gap.Insurance.Core
             IMasterDataService masterDataSvc,
             IPolicyService policyService)
             : base(args, masterDataSvc, policyService) { }
+
+        protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
+        {
+            if (operation == ApiChangeAction.Insert)
+            {
+                var policyCoverage = entity as PolicyCoverage;
+                policyCoverage.PolicyCoverageId = MockData.PolicyCoverages
+                    .Max(p => p.PolicyCoverageId) + 1;
+
+                MockData.AddRelatedData(policyCoverage);
+                MockData.PolicyCoverages.Add(policyCoverage);
+            }
+
+            await Task.FromResult(0);
+        }
     }
 }

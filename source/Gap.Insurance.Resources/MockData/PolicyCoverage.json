@@ -88,11 +88,5 @@
     "PolicyId": 4,
     "CoverageId": 3,
     "Percentage": 40
-  },
-  {
-    "PolicyCoverageId": 16,
-    "PolicyId": 4,
-    "CoverageId": 4,
-    "Percentage": 40
   }
 ]

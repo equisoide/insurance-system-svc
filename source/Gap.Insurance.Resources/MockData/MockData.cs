@@ -64,6 +64,14 @@ namespace Gap.Insurance.Resources
                     c => c.CoverageId == policyCoverage.CoverageId);
         }
 
+        public static void AddRelatedData(PolicyCoverage policyCoverage)
+        {
+            policyCoverage.Policy = Policies
+                .First(p => p.PolicyId == policyCoverage.PolicyId);
+            policyCoverage.Coverage = Coverages
+                .First(c => c.CoverageId == policyCoverage.CoverageId);
+        }
+
         public static void AddRelatedData(ClientPolicy clientPolicy)
         {
             clientPolicy.Policy = Policies
