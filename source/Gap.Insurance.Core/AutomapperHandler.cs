@@ -19,6 +19,7 @@ namespace Gap.Insurance.Core
         {
             config.CreateMap<Risk, RiskDto>();
             config.CreateMap<Coverage, CoverageDto>();
+            config.CreateMap<Client, ClientDto>();
 
             config.CreateMap<Policy, PolicyDto>()
                 .ForMember(

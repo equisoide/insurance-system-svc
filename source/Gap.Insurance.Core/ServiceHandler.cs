@@ -37,6 +37,7 @@ namespace Gap.Insurance.Core
                 {
                     services.AddMasterData<TLoggerCategory>(config);
                     services.AddPolicy<TLoggerCategory>(config);
+                    services.AddClient<TLoggerCategory>(config);
                     services.AddClientPolicy<TLoggerCategory>(config);
                 });
         }

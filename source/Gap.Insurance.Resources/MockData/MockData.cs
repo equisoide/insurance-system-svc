@@ -32,6 +32,11 @@ namespace Gap.Insurance.Resources
                  "MockData.PolicyCoverage.json", typeof(InsuranceResources).Assembly
              );
 
+        public static ICollection<Client> Clients =
+            EmbeddedFileUtility.ReadJson<ICollection<Client>>(
+                 "MockData.Client.json", typeof(InsuranceResources).Assembly
+             );
+
         public static ICollection<ClientPolicy> ClientPolicies =
             EmbeddedFileUtility.ReadJson<ICollection<ClientPolicy>>(
                  "MockData.ClientPolicy.json", typeof(InsuranceResources).Assembly

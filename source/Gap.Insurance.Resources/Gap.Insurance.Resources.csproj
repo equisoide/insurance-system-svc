@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MockData\Client.json" />
     <None Remove="MockData\ClientPolicy.json" />
     <None Remove="MockData\Coverage.json" />
     <None Remove="MockData\Policy.json" />
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="MockData\Client.json" />
     <EmbeddedResource Include="MockData\ClientPolicy.json" />
     <EmbeddedResource Include="MockData\Coverage.json" />
     <EmbeddedResource Include="MockData\PolicyStatus.json" />
