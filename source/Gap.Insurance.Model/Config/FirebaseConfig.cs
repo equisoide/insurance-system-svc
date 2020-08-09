@@ -1,5 +1,8 @@
-﻿namespace Gap.Insurance.Model
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Gap.Insurance.Model
 {
+    [ExcludeFromCodeCoverage]
     public class FirebaseConfig
     {
         public string ApiKey { get; set; }
