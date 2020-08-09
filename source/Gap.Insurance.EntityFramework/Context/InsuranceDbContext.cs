@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gap.Insurance.EntityFramework
 {
+    [ExcludeFromCodeCoverage]
     public partial class InsuranceDbContext : DbContext
     {
         public InsuranceDbContext()

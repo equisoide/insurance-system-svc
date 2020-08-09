@@ -1,5 +1,8 @@
-﻿namespace Gap.Insurance.EntityFramework
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Gap.Insurance.EntityFramework
 {
+    [ExcludeFromCodeCoverage]
     public partial class PolicyCoverage
     {
         public int PolicyCoverageId { get; set; }
