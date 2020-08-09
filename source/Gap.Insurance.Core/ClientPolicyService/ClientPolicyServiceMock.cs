@@ -19,16 +19,49 @@ namespace Gap.Insurance.Core
             IClientService clientSvc)
             : base(args, masterDataSvc, clientSvc) { }
 
-        protected override async Task<bool> CheckPolicyUsage(int policyId)
+        protected override async Task<bool> CheckPolicyIdUsage(int policyId)
         {
-            var isInUse = MockData.ClientPolicies.Any(cp => cp.PolicyId == policyId);
+            var isInUse = MockData.ClientPolicies
+                .Any(cp => cp.PolicyId == policyId);
+
             return await Task.FromResult(isInUse);
         }
 
-        protected override async Task<IEnumerable<ClientPolicy>> GetClientPolicies(int clientId)
+        protected override async Task<bool> CheckPolicyIdExists(int policyId)
         {
-            var policies = MockData.ClientPolicies.Where(cp => cp.ClientId == clientId);
+            var exists = MockData.Policies
+                .Any(p => p.PolicyId == policyId);
+
+            return await Task.FromResult(exists);
+        }
+
+        protected override async Task<ClientPolicy> GetClientPolicyById(int clientPolicyId)
+        {
+            var policy = MockData.ClientPolicies
+                .FirstOrDefault(cp => cp.ClientPolicyId == clientPolicyId);
+
+            return await Task.FromResult(policy);
+        }
+
+        protected override async Task<IEnumerable<ClientPolicy>> GetClientPoliciesByClientId(int clientId)
+        {
+            var policies = MockData.ClientPolicies
+                .Where(cp => cp.ClientId == clientId);
+
             return await Task.FromResult(policies);
+        }
+
+        protected override async Task SaveAsync(ApiChangeAction operation, object entity, bool commit = true)
+        {
+            if (operation == ApiChangeAction.Insert)
+            {
+                var clientPolicy = entity as ClientPolicy;
+                clientPolicy.ClientPolicyId = MockData.ClientPolicies.Max(p => p.ClientPolicyId) + 1;
+                MockData.AddRelatedData(clientPolicy);
+                MockData.ClientPolicies.Add(clientPolicy);
+            }
+
+            await Task.FromResult(0);
         }
     }
 }

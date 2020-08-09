@@ -13,6 +13,11 @@ namespace Gap.Insurance.Core
         {
             config.CreateMap<CreatePolicyPayload, Policy>();
             config.CreateMap<UpdatePolicyPayload, Policy>();
+
+            config.CreateMap<CreateClientPolicyPayload, ClientPolicy>()
+                .ForMember(
+                    des => des.PolicyStatusId,
+                    opt => opt.MapFrom(src => Constants.ActivePolicyStatusId));
         }
 
         public static void MapEntitiesToDtos(this IMapperConfigurationExpression config)

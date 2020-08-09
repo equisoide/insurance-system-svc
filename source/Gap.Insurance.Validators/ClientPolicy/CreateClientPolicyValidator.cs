@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using Gap.Insurance.Model;
 
 namespace Gap.Insurance.Validators
@@ -16,7 +15,7 @@ namespace Gap.Insurance.Validators
 
             RuleFor(payload => payload.StartDate)
                 .NotNull()
-                .GreaterThanOrEqualTo(DateTime.Today.ToUniversalTime());
+                .NotEmpty();
         }
     }
 }

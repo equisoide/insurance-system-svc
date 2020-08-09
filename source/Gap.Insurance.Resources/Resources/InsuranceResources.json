@@ -1,5 +1,6 @@
 ﻿{
   "ArgumentCanNotBeNull": "Arguments can not be null",
+  "ClientIdNotFound": "The provided 'Client Id' was not found",
   "CoverageIdNotFound": "The provided 'Coverage Id' was not found",
   "CreatePolicyOk": "The new policy was successfully created!",
   "DeletePolicyOk": "The policy was successfully deleted!",

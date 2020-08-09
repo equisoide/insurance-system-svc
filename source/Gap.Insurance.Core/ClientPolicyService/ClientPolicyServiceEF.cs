@@ -18,10 +18,20 @@ namespace Gap.Insurance.Core
             IClientService clientSvc)
             : base(args, masterDataSvc, clientSvc) { }
 
-        protected override async Task<bool> CheckPolicyUsage(int policyId)
+        protected override async Task<bool> CheckPolicyIdUsage(int policyId)
             => await DbContext.ClientPolicy.AnyAsync(cp => cp.PolicyId == policyId);
 
-        protected override async Task<IEnumerable<ClientPolicy>> GetClientPolicies(int clientId)
+        protected override async Task<bool> CheckPolicyIdExists(int policyId)
+            => await DbContext.Policy.AnyAsync(p => p.PolicyId == policyId);
+
+        protected override async Task<ClientPolicy> GetClientPolicyById(int clientPolicyId)
+            => await DbContext.ClientPolicy
+                    .Where(cp => cp.ClientPolicyId == clientPolicyId)
+                    .Include(cp => cp.Policy)
+                    .Include(cp => cp.PolicyStatus)
+                    .FirstOrDefaultAsync();
+
+        protected override async Task<IEnumerable<ClientPolicy>> GetClientPoliciesByClientId(int clientId)
             => await DbContext.ClientPolicy
                 .Where(cp => cp.ClientId == clientId)
                 .Include(cp => cp.Policy)
