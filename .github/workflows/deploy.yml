@@ -9,32 +9,7 @@ env:
   TEST_FOLDER: './source/*.Test/'
   COVERAGE_FILE: ./source/coverage.info
 
-jobs:
-  build:
-    if: false == contains(github.event.head_commit.message, '[release]')
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Setup .net core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-    - name: Build with dotnet
-      run: dotnet build ${{env.SOLUTION_FILE}} --configuration Release
-    - name: Run unit tests
-      run: dotnet test ${{env.TEST_PROJECT}}
-    - name: Generate coverage report
-      run: |
-        cd ${{env.TEST_FOLDER}}
-        dotnet test /p:CollectCoverage=true /p:CoverletOutput=../ /p:CoverletOutputFormat=lcov
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{env.COVERAGE_FILE}}
-        
+jobs:   
   deploy:
     runs-on: ubuntu-latest
     
@@ -42,20 +17,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
-    - name: Github docker login
-      run: docker login docker.pkg.github.com -u equisoide -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Azure docker login
+      run: docker login gaptest.azurecr.io -u ${{ secrets.CONTAINER_REGISTRY_USR }} -p ${{ secrets.CONTAINER_REGISTRY_PWD }}
       
     - name: Build image
       working-directory: ./
-      run: docker build -t docker.pkg.github.com/equisoide/insurance-system-svc/insuranceapi:latest . -f Dockerfile
+      run: docker build -t gaptest.azurecr.io/insuranceapi:latest . -f Dockerfile
       
     - name: Publish image
       working-directory: ./
-      run: docker push docker.pkg.github.com/equisoide/insurance-system-svc/insuranceapi:latest
+      run: docker push gaptest.azurecr.io/insuranceapi:latest
       
     - name: Deploy image to azure site via webhooks
       uses: joelwmale/webhook-action@master
       env:
         WEBHOOK_URL: ${{ secrets.AZURE_DEPLOY_WEBHOOK_DEV_URL }}
-        data: "Deploying from github actions"
+        data: "Deploying from github actions!"
 
