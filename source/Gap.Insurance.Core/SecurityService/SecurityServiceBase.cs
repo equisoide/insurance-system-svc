@@ -29,6 +29,12 @@ namespace Gap.Insurance.Core
             {
                 response = await SignIn(payload);
                 ProcessResponse(response, SignInStatus.Ok);
+
+                if (response.StatusCode == SignInStatus.Ok)
+                {
+                    response.Message = null;
+                    response.MessageType = null;
+                }
             }
 
             EndLog();
