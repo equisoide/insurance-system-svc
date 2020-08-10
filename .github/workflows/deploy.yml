@@ -57,5 +57,5 @@ jobs:
       uses: joelwmale/webhook-action@master
       env:
         WEBHOOK_URL: ${{ secrets.AZURE_DEPLOY_WEBHOOK_DEV_URL }}
-        data: "Deploying from github actions!"
+        data: "Deploying from github actions"
 
