@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Gap.Insurance.EntityFramework
 {
+    [ExcludeFromCodeCoverage]
     public partial class PolicyStatus
     {
         public PolicyStatus()

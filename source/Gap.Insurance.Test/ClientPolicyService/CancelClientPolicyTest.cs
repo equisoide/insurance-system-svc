@@ -71,7 +71,7 @@ namespace Gap.Insurance.Test
         public async Task CancelClientPolicyOk()
         {
             var clientPolicySvc = GetService<IClientPolicyService>();
-            var payload = new CancelClientPolicyPayload { ClientPolicyId = 3 };
+            var payload = new CancelClientPolicyPayload { ClientPolicyId = 2 };
             var response = await clientPolicySvc.CancelClientPolicyAsync(payload);
             var expectedMsg = InsuranceResources.Get("CancelClientPolicyOk");
 
