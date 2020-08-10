@@ -1,6 +1,9 @@
 name: deploy
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 env:
   DOTNET_VERSION: 3.1.100
@@ -9,8 +12,33 @@ env:
   TEST_FOLDER: './source/*.Test/'
   COVERAGE_FILE: ./source/coverage.info
 
-jobs:   
+jobs:
+  build:
+    if: contains(github.event.head_commit.message, '[release]')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Setup .net core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+    - name: Build with dotnet
+      run: dotnet build ${{env.SOLUTION_FILE}} --configuration Release
+    - name: Run unit tests
+      run: dotnet test ${{env.TEST_PROJECT}}
+    - name: Generate coverage report
+      run: |
+        cd ${{env.TEST_FOLDER}}
+        dotnet test /p:CollectCoverage=true /p:CoverletOutput=../ /p:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ${{env.COVERAGE_FILE}}   
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     
     steps:
@@ -33,4 +61,3 @@ jobs:
       env:
         WEBHOOK_URL: ${{ secrets.AZURE_DEPLOY_WEBHOOK_DEV_URL }}
         data: "Deploying from github actions!"
-
