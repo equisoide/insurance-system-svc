@@ -48,7 +48,7 @@ namespace Gap.Insurance.RestApi
                 {
                     swagger.Servers = new List<OpenApiServer> {
                         new OpenApiServer {
-                            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}"
+                            Url = $"https://{httpReq.Host.Value}"
                         }
                     };
                 });
